@@ -23,38 +23,20 @@
   * { box-sizing: border-box; }
   html { -webkit-font-smoothing: antialiased; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; font-size: 17px; }
-  /* cursor-following spotlight (glass orb: transparent center, bright clay rim) */
+  /* cursor-following color glow */
   body::before {
     content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background: radial-gradient(170px circle at var(--mx, 50%) var(--my, -20%),
-      rgba(204,120,92,0.00) 0%,
-      rgba(204,120,92,0.00) 34%,
-      rgba(255,255,255,0.65) 40%,
-      rgba(204,120,92,0.55) 50%,
-      rgba(204,120,92,0.22) 66%,
-      rgba(204,120,92,0.00) 80%);
+    background: radial-gradient(300px circle at var(--mx, 50%) var(--my, -20%),
+      rgba(204,120,92,0.38), rgba(204,120,92,0.16) 45%, transparent 72%);
     opacity: 0; transition: opacity .35s ease;
   }
   body.cursor-active::before { opacity: 1; }
-  /* click ripple (water wave) */
-  .ripple {
-    position: fixed; z-index: 0; pointer-events: none; border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    border: 1.5px solid rgba(204,120,92,0.45);
-    background: radial-gradient(circle, rgba(204,120,92,0.18), rgba(204,120,92,0.05) 45%, transparent 70%);
-    animation: ripple-wave 720ms ease-out forwards;
-  }
-  @keyframes ripple-wave {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 0.85; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-  }
   nav, header, section, footer { position: relative; z-index: 1; }
   /* scroll reveal */
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.is-visible { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     body::before { display: none; }
-    .ripple { display: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
   a { color: inherit; }
@@ -223,19 +205,6 @@
         });
       });
       window.addEventListener("pointerleave", () => document.body.classList.remove("cursor-active"));
-
-      // click ripple (water wave)
-      const SIZE = 240;
-      window.addEventListener("pointerdown", (e) => {
-        const r = document.createElement("span");
-        r.className = "ripple";
-        r.style.left = e.clientX + "px";
-        r.style.top = e.clientY + "px";
-        r.style.width = r.style.height = SIZE + "px";
-        document.body.appendChild(r);
-        r.addEventListener("animationend", () => r.remove());
-        setTimeout(() => r.remove(), 900);
-      });
     }
     const reveals = document.querySelectorAll(".reveal");
     if (reduce || !("IntersectionObserver" in window)) {
