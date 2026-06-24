@@ -1,21 +1,29 @@
 # MasayaさんAI
 
-GitHub Copilot で動かしている「自作エージェント」の構成と仕事内容を、初心者向けにまとめたスライド（Marp 製）。
+GitHub Copilot を使った AI エージェント活用の **解説資料・デックのキュレーションサイト**。
+トップページから各資料へリンクで飛べます。資料はここに追加していきます。
 
 ## 公開ページ（リンクで共有）
 
 https://yukeidaro.github.io/masaya-san-ai/
 
-## 中身
+## 構成
 
-- `index.html` — そのままブラウザで開けるスライド（Marp で生成）
-- `deck.md` — スライドの元原稿（Markdown）
-
-## 編集のしかた
-
-`deck.md` を編集し、以下で再生成して push するだけ:
-
-```bash
-npx @marp-team/marp-cli@latest deck.md --html -o index.html
-git add -A && git commit -m "update deck" && git push
 ```
+index.html                        <- トップ（キュレーション一覧ページ）
+decks/
+  copilot-agents/
+    index.html                    <- デック本体（Marp で生成）
+    deck.md                       <- デックの元原稿（Markdown）
+```
+
+## 新しい資料（デック）の追加手順
+
+1. `decks/<新しい名前>/` フォルダを作る
+2. その中に `deck.md` を置き、HTML を生成する:
+   `npx @marp-team/marp-cli@latest deck.md --html -o index.html`
+3. トップの `index.html` に、カードを1つ追加してリンクを張る
+4. push する:
+   `git add -A; git commit -m "add ..."; git push`
+
+数十秒～数分で公開ページに反映されます。
