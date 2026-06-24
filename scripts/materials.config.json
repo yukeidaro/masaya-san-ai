@@ -1,0 +1,18 @@
+[
+  {
+    "dir": "kickoff-recap",
+    "date": "2026-06-16",
+    "title": "2026-06-16",
+    "tag": "リキャップ",
+    "summary": "AIコンサル キックオフの要点・決定事項・次にやることをスライドでおさらい。",
+    "url": "./decks/kickoff-recap/"
+  },
+  {
+    "dir": "copilot-agents",
+    "date": "2026-06-24",
+    "title": "AI エージェント構成",
+    "tag": "デック",
+    "summary": "目的別の AI スタッフを合図ひとつで動かす仕組みと、その作り方（MD 1枚）を初心者向けに解説。",
+    "url": "./decks/copilot-agents/"
+  }
+]

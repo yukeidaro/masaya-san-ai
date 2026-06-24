@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MasayaさんAI — AIエージェントを学ぶ</title>
-<meta name="description" content="GitHub Copilot / Claude Code を使った AI エージェント活用の学習ハブ。前回セッションの要約・Next Action・解説デックをまとめています。" />
+<title>MasayaさんAI勉強ノート</title>
+<meta name="description" content="AI / Claude Code 学習の勉強ノート。Next Action・資料一覧（検索/日付）・自由メモ。" />
 <style>
   :root {
     --bg: #faf9f5;
@@ -17,91 +17,77 @@
     --clay-tint: #f7ede7;
     --border: #e4e1d6;
     --border-strong: #d9d5c7;
-    --serif: "Tiempos Headline", "Hiragino Mincho ProN", "Yu Mincho", ui-serif, Georgia, "Times New Roman", serif;
+    --serif: "Tiempos Headline", "Hiragino Mincho ProN", "Yu Mincho", ui-serif, Georgia, serif;
     --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, Arial, sans-serif;
   }
   * { box-sizing: border-box; }
   html { -webkit-font-smoothing: antialiased; }
-  body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font-family: var(--sans); line-height: 1.65; font-size: 17px;
-  }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; font-size: 17px; }
   a { color: inherit; }
-  .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
 
-  /* nav */
-  nav {
-    border-bottom: 1px solid var(--border);
-    background: rgba(250,249,245,0.85); backdrop-filter: blur(8px);
-    position: sticky; top: 0; z-index: 10;
-  }
-  nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; text-decoration: none; }
-  .brand .dot { width: 22px; height: 22px; border-radius: 6px; background: var(--clay); display: inline-block; }
-  nav .links { display: flex; gap: 26px; font-size: 15px; color: var(--ink-soft); }
+  nav { border-bottom: 1px solid var(--border); background: rgba(250,249,245,0.9); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  nav .container { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; text-decoration: none; }
+  .brand .dot { width: 20px; height: 20px; border-radius: 6px; background: var(--clay); }
+  nav .links { display: flex; gap: 24px; font-size: 15px; color: var(--ink-soft); }
   nav .links a { text-decoration: none; }
   nav .links a:hover { color: var(--ink); }
 
-  /* hero */
-  .hero { padding: 84px 0 56px; }
-  .hero .eyebrow { color: var(--clay-dark); font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 18px; }
-  .hero h1 { font-family: var(--serif); font-weight: 600; font-size: 56px; line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 22px; max-width: 760px; }
-  .hero p { font-size: 19px; color: var(--ink-soft); max-width: 620px; margin: 0; }
+  header.page-head { padding: 56px 0 8px; }
+  header.page-head h1 { font-family: var(--serif); font-weight: 600; font-size: 40px; letter-spacing: -0.02em; margin: 0; }
 
-  section { padding: 56px 0; }
+  section { padding: 40px 0; }
   .section-alt { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .kicker { font-family: var(--serif); font-size: 30px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 8px; }
-  .lead { color: var(--ink-soft); margin: 0 0 32px; max-width: 680px; }
+  .kicker { font-family: var(--serif); font-size: 26px; font-weight: 600; margin: 0 0 6px; }
+  .lead { color: var(--ink-soft); margin: 0 0 24px; max-width: 680px; }
 
   /* next action */
-  .na {
-    background: var(--clay-tint); border: 1px solid #ecd9cf;
-    border-radius: 16px; padding: 30px 32px;
-  }
-  .na h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 20px; }
+  .na { background: var(--clay-tint); border: 1px solid #ecd9cf; border-radius: 16px; padding: 28px 30px; }
+  .na h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 20px; }
   .na .badge { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; color: #fff; background: var(--clay); padding: 3px 10px; border-radius: 999px; }
   .na .sub { color: var(--ink-soft); font-size: 15px; margin: 0 0 18px; }
-  ul.todo { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-  ul.todo li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; }
-  ul.todo .cb { flex: 0 0 auto; width: 19px; height: 19px; margin-top: 3px; border: 2px solid var(--clay); border-radius: 5px; background: #fff; }
-  ul.todo .cb.done { background: var(--clay); position: relative; }
-  ul.todo .cb.done::after { content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
-  ul.todo li.is-done > span:last-child { color: var(--ink-faint); text-decoration: line-through; }
-  .na .who { font-size: 13px; font-weight: 700; color: var(--clay-dark); text-transform: uppercase; letter-spacing: 0.06em; margin: 22px 0 10px; }
+  ul.todo { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  ul.todo li { display: flex; align-items: flex-start; gap: 12px; font-size: 16.5px; }
+  ul.todo .cb { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 3px; border: 2px solid var(--clay); border-radius: 5px; background: #fff; }
 
-  /* recap */
-  .recap-meta { font-size: 14px; color: var(--ink-faint); margin: 0 0 24px; }
-  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-  .panel { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 24px 26px; }
-  .section-alt .panel { background: #fff; }
-  .panel h4 { margin: 0 0 14px; font-size: 17px; }
-  .panel ul { margin: 0; padding-left: 20px; color: var(--ink-soft); }
-  .panel ul li { margin-bottom: 9px; }
-  .panel ul li strong { color: var(--ink); }
+  /* materials */
+  .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
+  .controls input, .controls select { font-family: var(--sans); font-size: 15px; color: var(--ink); background: var(--bg); border: 1px solid var(--border-strong); border-radius: 10px; padding: 11px 14px; }
+  .controls input { flex: 1 1 280px; }
+  .controls input::placeholder { color: var(--ink-faint); }
+  .count { color: var(--ink-faint); font-size: 14px; margin: 0 0 14px; }
+  .gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .card { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px 22px; transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease; }
+  .section-alt .card { background: #fff; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(20,20,19,0.08); border-color: var(--border-strong); }
+  .card .meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .card .date { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 14px; color: var(--clay-dark); }
+  .card .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; color: var(--ink-faint); border: 1px solid var(--border-strong); border-radius: 999px; padding: 2px 9px; }
+  .card h3 { font-family: var(--serif); font-weight: 600; font-size: 20px; margin: 2px 0 8px; letter-spacing: -0.01em; }
+  .card p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
+  .empty { color: var(--ink-faint); font-size: 15px; padding: 8px 2px; }
 
-  /* gallery */
-  .gallery { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-  .card { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--bg); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-  .card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(20,20,19,0.08); border-color: var(--border-strong); }
-  .card .thumb { height: 150px; display: flex; align-items: center; justify-content: center; }
-  .card .thumb .tl { font-family: var(--serif); font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.95); letter-spacing: 0.01em; }
-  .thumb.c1 { background: linear-gradient(135deg, #e9b8a3 0%, #cc785c 100%); }
-  .thumb.c2 { background: linear-gradient(135deg, #cdd6c8 0%, #8fa382 100%); }
-  .thumb.c3 { background: linear-gradient(135deg, #d8d2e8 0%, #a99cc9 100%); }
-  .card .body { padding: 22px 24px 24px; }
-  .card .tag { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--clay-dark); }
-  .card h3 { font-family: var(--serif); font-weight: 600; font-size: 21px; margin: 8px 0 8px; letter-spacing: -0.01em; }
-  .card p { margin: 0; font-size: 15px; color: var(--ink-soft); }
-  .card.soon { border-style: dashed; }
-  .card.soon .thumb { background: var(--bg-alt); color: var(--ink-faint); }
-  .card.soon:hover { transform: none; box-shadow: none; }
+  /* notes */
+  .notes textarea { width: 100%; min-height: 150px; resize: vertical; font-family: var(--sans); font-size: 16px; line-height: 1.6; color: var(--ink); background: #fff; border: 1px solid var(--border-strong); border-radius: 12px; padding: 16px 18px; }
+  .notes textarea::placeholder { color: var(--ink-faint); }
+  .notes .row { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+  .btn { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; background: var(--clay); border: none; border-radius: 10px; padding: 11px 22px; cursor: pointer; }
+  .btn:hover { background: var(--clay-dark); }
+  .status { font-size: 14px; color: var(--ink-faint); }
+  .saved-list { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 12px; }
+  .saved-list li { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .saved-list .when { font-size: 13px; font-weight: 600; color: var(--clay-dark); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
+  .saved-list .what { white-space: pre-wrap; font-size: 15px; color: var(--ink); }
+  .saved-list .del { float: right; font-size: 13px; color: var(--ink-faint); background: none; border: none; cursor: pointer; }
+  .saved-list .del:hover { color: var(--clay-dark); }
+  .note-help { font-size: 13px; color: var(--ink-faint); margin: 10px 0 0; }
 
-  footer { padding: 40px 0 64px; border-top: 1px solid var(--border); color: var(--ink-faint); font-size: 14px; }
+  footer { padding: 36px 0 60px; border-top: 1px solid var(--border); color: var(--ink-faint); font-size: 14px; }
   footer a { color: var(--clay-dark); text-decoration: none; }
 
-  @media (max-width: 760px) {
-    .hero h1 { font-size: 38px; }
-    .twocol { grid-template-columns: 1fr; }
+  @media (max-width: 720px) {
+    header.page-head h1 { font-size: 30px; }
     nav .links { display: none; }
     .container { padding: 0 22px; }
   }
@@ -110,81 +96,32 @@
 <body>
   <nav>
     <div class="container">
-      <a class="brand" href="#top"><span class="dot"></span>MasayaさんAI</a>
+      <a class="brand" href="#top"><span class="dot"></span>MasayaさんAI勉強ノート</a>
       <div class="links">
         <a href="#next">Next Action</a>
-        <a href="#recap">前回の振り返り</a>
         <a href="#materials">資料</a>
+        <a href="#notes">メモ</a>
       </div>
     </div>
   </nav>
 
-  <header id="top" class="hero">
+  <header id="top" class="page-head">
     <div class="container">
-      <div class="eyebrow">Learning Hub</div>
-      <h1>AI エージェントを、<br>「使い捨てQ&A」から「自走」へ。</h1>
-      <p>GitHub Copilot / Claude Code を使った AI エージェント活用の学習ハブです。前回セッションの振り返り・次にやること・解説デックをここにまとめていきます。</p>
+      <h1>MasayaさんAI勉強ノート</h1>
     </div>
   </header>
 
   <!-- NEXT ACTION -->
-  <section id="next" class="section-alt">
+  <section id="next">
     <div class="container">
       <div class="na">
-        <h3><span class="badge">NEXT ACTION</span>今やること</h3>
-        <p class="sub">2026-06-16 のキックオフで合意した、次のセッションまでの宿題です。上から順に進めるのがおすすめ。</p>
-
-        <div class="who">あなた（クライアント側）</div>
+        <h2><span class="badge">NEXT ACTION</span>今やること</h2>
+        <p class="sub">まずはこの3つから。上から順に進めるのがおすすめです。</p>
         <ul class="todo">
-          <li><span class="cb"></span><span><strong>Obsidian をインストール</strong>し、markdown を閲覧・編集できる状態にする（リンク共有済み）</span></li>
-          <li><span class="cb"></span><span><strong>Claude Code を CLI（ターミナル）でセットアップ</strong>する（共有手順に沿って実行）</span></li>
-          <li><span class="cb"></span><span>初期化を実行し、生成された <strong>CLAUDE.md をローカルで開く</strong></span></li>
-          <li><span class="cb"></span><span>自動生成のままにせず <strong>CLAUDE.md を改善</strong>（100〜200行が目安）</span></li>
-          <li><span class="cb"></span><span>反復的で面倒な作業を洗い出し、<strong>音声入力で Claude に渡す</strong></span></li>
-          <li><span class="cb"></span><span>クリエイター業務（概要・視聴者像・親和性・オリエンシート等）を入力し「<strong>スキルにして</strong>」と指示</span></li>
-          <li><span class="cb"></span><span>過去の有用な AI 会話を <strong>markdown にコピー</strong>して再利用コンテキスト化</span></li>
+          <li><span class="cb"></span><span><strong>Claude Code を CLI（ターミナル）でセットアップ</strong>する</span></li>
+          <li><span class="cb"></span><span><strong>CLAUDE.md を作成し、改善する</strong>（自動生成のままにせず、100〜200行が目安）</span></li>
+          <li><span class="cb"></span><span><strong>Obsidian をインストール</strong>して markdown を扱える状態にする</span></li>
         </ul>
-
-        <div class="who">Yu（コーチ側）</div>
-        <ul class="todo">
-          <li><span class="cb done"></span><span class="">この学習ハブ（本ページ）を用意し、リンクで共有</span></li>
-          <li><span class="cb"></span><span>ベースの <strong>CLAUDE.md / コアアシスタント方針</strong>ファイルを共有</span></li>
-          <li><span class="cb"></span><span><strong>CLAUDE.md の書き方ガイド</strong>（分かりやすい参考資料）を用意</span></li>
-          <li><span class="cb"></span><span>来週の<strong>フォローアップ（実践 / vibe coding）</strong>の日程を確定</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- RECAP -->
-  <section id="recap">
-    <div class="container">
-      <h2 class="kicker">前回の振り返り</h2>
-      <p class="recap-meta">AI コンサルティング キックオフセッション ・ 2026-06-16 ・ Teams</p>
-      <p class="lead">テーマは「今やっていること / 達成したいこと」と「AI エージェントの基礎的な考え方」のすり合わせ。土台となる思考が無いとエージェントは機能しない、という前提でコア概念と実践の両方をカバーしました。</p>
-
-      <div class="twocol">
-        <div class="panel">
-          <h4>決定事項</h4>
-          <ul>
-            <li>本セッションは<strong>目標とエージェント基礎のキックオフ</strong>と位置づける</li>
-            <li><strong>Claude Code を採用</strong>し、<strong>CLI セットアップ</strong>から始める</li>
-            <li>アドホックな Q&A をやめ、<strong>まず CLAUDE.md を作成・改善</strong>する</li>
-            <li>markdown の管理・閲覧に <strong>Obsidian</strong> を使う</li>
-            <li>反復ワークフローは<strong>再利用可能なスキルに</strong>する</li>
-            <li><strong>来週フォローアップ</strong>を実施（日程はクライアント側で予約）</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>押さえた考え方</h4>
-          <ul>
-            <li><strong>Q&Aで終わらせない</strong>：毎回トリガーしなくても物事が進む状態を作る（自動化・継続・記憶・自走）</li>
-            <li><strong>CLAUDE.md = システムプロンプト</strong>：AI の役割・人格の中核。長すぎると効かない（100〜200行）</li>
-            <li><strong>スキル化</strong>：椅子が欲しいなら毎回木から始めず「椅子スキル」を用意する</li>
-            <li><strong>メタ思考が役割</strong>：どう指示し、記憶させ、足場を組むかを考え続ける</li>
-            <li><strong>ツール非依存</strong>：文脈をローカルに持てば、どのAIでも持ち運べる</li>
-          </ul>
-        </div>
       </div>
     </div>
   </section>
@@ -193,36 +130,29 @@
   <section id="materials" class="section-alt">
     <div class="container">
       <h2 class="kicker">資料一覧</h2>
-      <p class="lead">解説デックや学習資料は、ここに追加していきます。</p>
-      <div class="gallery">
+      <p class="lead">日付で絞り込み、または検索ボックスで中身まで探せます。</p>
+      <div class="controls">
+        <input id="search" type="search" placeholder="キーワードで検索（タイトル・本文）" autocomplete="off" />
+        <select id="dateFilter" aria-label="日付で絞り込み"></select>
+      </div>
+      <p id="count" class="count"></p>
+      <div id="gallery" class="gallery"></div>
+    </div>
+  </section>
 
-        <a class="card" href="./decks/kickoff-recap/">
-          <div class="thumb c1"><span class="tl">Recap</span></div>
-          <div class="body">
-            <span class="tag">デック</span>
-            <h3>キックオフ振り返り</h3>
-            <p>2026-06-16 セッションの要点・決定事項・次にやることをスライドでおさらい。</p>
-          </div>
-        </a>
-
-        <a class="card" href="./decks/copilot-agents/">
-          <div class="thumb c2"><span class="tl">Agents</span></div>
-          <div class="body">
-            <span class="tag">デック</span>
-            <h3>AI エージェント構成</h3>
-            <p>目的別の AI スタッフを合図ひとつで動かす仕組みと、その作り方（MD 1枚）を初心者向けに解説。</p>
-          </div>
-        </a>
-
-        <div class="card soon">
-          <div class="thumb c3"><span class="tl">Soon</span></div>
-          <div class="body">
-            <span class="tag">準備中</span>
-            <h3>次の資料</h3>
-            <p>CLAUDE.md の書き方ガイドなどを順次追加します。</p>
-          </div>
+  <!-- NOTES -->
+  <section id="notes">
+    <div class="container">
+      <h2 class="kicker">疑問・自動化したいことメモ</h2>
+      <p class="lead">気づいたこと、聞きたいこと、AIに自動化させたいことを自由に書いてください。保存すると日時とともに残ります。</p>
+      <div class="notes">
+        <textarea id="noteInput" placeholder="例：&#10;・毎朝のメール仕分けを自動化したい&#10;・CLAUDE.md は何行くらいが適切？&#10;・請求書PDFから金額を抜き出す方法は？"></textarea>
+        <div class="row">
+          <button id="saveBtn" class="btn">保存する</button>
+          <span id="status" class="status"></span>
         </div>
-
+        <p class="note-help" id="noteHelp"></p>
+        <ul id="savedList" class="saved-list"></ul>
       </div>
     </div>
   </section>
@@ -232,5 +162,113 @@
       Curated by Yu &middot; Built with <a href="https://marp.app/">Marp</a> &amp; GitHub Pages
     </div>
   </footer>
+
+<script>
+  // ===== Config =====
+  // 無料の中央保存（Yuも閲覧可）を使う場合、Web3Forms の無料アクセスキーをここに入れてください。
+  // 空のままだと「この端末のブラウザ内（localStorage）」にのみ保存されます。
+  const WEB3FORMS_KEY = "";
+
+  // ===== Utils =====
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  function nowStamp() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+
+  // ===== Materials (search + date filter) =====
+  let MATERIALS = [];
+  const gallery = $("#gallery"), search = $("#search"), dateFilter = $("#dateFilter"), countEl = $("#count");
+
+  function renderMaterials() {
+    const q = search.value.trim().toLowerCase();
+    const d = dateFilter.value;
+    const rows = MATERIALS.filter((m) => {
+      if (d !== "__all" && m.date !== d) return false;
+      if (!q) return true;
+      return (m.title + " " + m.date + " " + (m.summary || "") + " " + (m.text || "")).toLowerCase().includes(q);
+    });
+    countEl.textContent = `${rows.length} 件`;
+    if (!rows.length) { gallery.innerHTML = '<p class="empty">該当する資料がありません。</p>'; return; }
+    gallery.innerHTML = rows.map((m) => `
+      <a class="card" href="${esc(m.url)}">
+        <div class="meta"><span class="date">${esc(m.date)}</span><span class="tag">${esc(m.tag || "")}</span></div>
+        <h3>${esc(m.title)}</h3>
+        <p>${esc(m.summary || "")}</p>
+      </a>`).join("");
+  }
+
+  fetch("./materials.json")
+    .then((r) => r.json())
+    .then((data) => {
+      MATERIALS = data;
+      const dates = [...new Set(data.map((m) => m.date))].sort().reverse();
+      dateFilter.innerHTML = '<option value="__all">すべての日付</option>' + dates.map((d) => `<option value="${esc(d)}">${esc(d)}</option>`).join("");
+      renderMaterials();
+    })
+    .catch(() => { gallery.innerHTML = '<p class="empty">資料の読み込みに失敗しました。</p>'; });
+
+  search.addEventListener("input", renderMaterials);
+  dateFilter.addEventListener("change", renderMaterials);
+
+  // ===== Notes (localStorage + optional free central save) =====
+  const NKEY = "study_notes_v1";
+  const noteInput = $("#noteInput"), saveBtn = $("#saveBtn"), statusEl = $("#status"), savedList = $("#savedList"), noteHelp = $("#noteHelp");
+
+  noteHelp.textContent = WEB3FORMS_KEY
+    ? "保存内容はこの端末に残り、Yu にも届きます（中央保存・無料）。"
+    : "現在はこの端末のブラウザ内にのみ保存されます（中央保存は未設定）。";
+
+  function loadNotes() { try { return JSON.parse(localStorage.getItem(NKEY) || "[]"); } catch { return []; } }
+  function saveNotes(arr) { localStorage.setItem(NKEY, JSON.stringify(arr)); }
+
+  function renderNotes() {
+    const arr = loadNotes();
+    if (!arr.length) { savedList.innerHTML = ""; return; }
+    savedList.innerHTML = arr.slice().reverse().map((n) =>
+      `<li><button class="del" data-time="${esc(n.time)}">削除</button><div class="when">${esc(n.time)} に保存</div><div class="what">${esc(n.text)}</div></li>`
+    ).join("");
+    savedList.querySelectorAll(".del").forEach((b) => b.addEventListener("click", () => {
+      const t = b.getAttribute("data-time");
+      saveNotes(loadNotes().filter((n) => n.time !== t));
+      renderNotes();
+    }));
+  }
+
+  async function centralSave(entry) {
+    if (!WEB3FORMS_KEY) return { skipped: true };
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: "MasayaさんAI勉強ノート: 新しいメモ",
+          from_name: "MasayaさんAI勉強ノート",
+          message: `[${entry.time}]\n${entry.text}`,
+        }),
+      });
+      const j = await res.json();
+      return { ok: j.success === true };
+    } catch (e) { return { ok: false, error: e.message }; }
+  }
+
+  saveBtn.addEventListener("click", async () => {
+    const text = noteInput.value.trim();
+    if (!text) { statusEl.textContent = "内容を入力してください。"; return; }
+    const entry = { time: nowStamp(), text };
+    const arr = loadNotes(); arr.push(entry); saveNotes(arr);
+    renderNotes();
+    noteInput.value = "";
+    statusEl.textContent = `${entry.time} に保存しました`;
+    const r = await centralSave(entry);
+    if (r && r.ok) statusEl.textContent = `${entry.time} に保存し、Yu にも送信しました`;
+    else if (r && r.error) statusEl.textContent = `${entry.time} に端末へ保存（送信は失敗：再接続時に再送してください）`;
+  });
+
+  renderNotes();
+</script>
 </body>
 </html>
