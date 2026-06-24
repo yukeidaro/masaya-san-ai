@@ -1,29 +1,26 @@
 # MasayaさんAI
 
-GitHub Copilot を使った AI エージェント活用の **解説資料・デックのキュレーションサイト**。
-トップページから各資料へリンクで飛べます。資料はここに追加していきます。
+GitHub Copilot / Claude Code を使った AI エージェント活用の **学習ハブ**（Anthropic Learn 風デザイン）。
+トップに「前回の振り返り」「Next Action」「資料一覧」をまとめ、リンクで共有できます。
 
-## 公開ページ（リンクで共有）
+## 公開ページ
 
 https://yukeidaro.github.io/masaya-san-ai/
 
 ## 構成
 
 ```
-index.html                        <- トップ（キュレーション一覧ページ）
+index.html                      <- トップ（学習ハブ：振り返り / Next Action / 資料）
 decks/
-  copilot-agents/
-    index.html                    <- デック本体（Marp で生成）
-    deck.md                       <- デックの元原稿（Markdown）
+  kickoff-recap/                <- キックオフ振り返りデック（2026-06-16）
+    index.html / deck.md
+  copilot-agents/               <- AIエージェント構成デック
+    index.html / deck.md
 ```
 
-## 新しい資料（デック）の追加手順
+## 新しい資料（デック）の追加
 
-1. `decks/<新しい名前>/` フォルダを作る
-2. その中に `deck.md` を置き、HTML を生成する:
-   `npx @marp-team/marp-cli@latest deck.md --html -o index.html`
-3. トップの `index.html` に、カードを1つ追加してリンクを張る
-4. push する:
-   `git add -A; git commit -m "add ..."; git push`
-
-数十秒～数分で公開ページに反映されます。
+1. `decks/<名前>/` を作り `deck.md` を置く
+2. `npx @marp-team/marp-cli@latest deck.md --html -o index.html`
+3. トップ `index.html` の gallery にカードを1枚追加
+4. `git add -A; git commit -m "add ..."; git push`
