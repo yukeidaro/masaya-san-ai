@@ -1,5 +1,13 @@
 [
   {
+    "dir": "lp-copy-guide",
+    "date": "2026-06-24",
+    "title": "競合LPをそっくりコピーして差し替える",
+    "tag": "デック",
+    "summary": "競合LP（DMM）をSingleFileでそっくりコピーし、文字・class名・MCPで狙った要素だけ差し替える手順。広告2枠を動物画像に変えた実例つき。",
+    "url": "./decks/lp-copy-guide/"
+  },
+  {
     "dir": "kickoff-recap",
     "date": "2026-06-16",
     "title": "2026-06-16",
