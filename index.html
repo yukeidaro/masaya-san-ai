@@ -3,103 +3,212 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MasayaさんAI — 解説資料・デック まとめ</title>
-<meta name="description" content="GitHub Copilot を使った AI エージェント活用の解説資料・デックのキュレーションサイト" />
+<title>MasayaさんAI</title>
+<meta name="description" content="GitHub Copilot を使った AI エージェント活用の解説資料・デックのまとめページ" />
 <style>
   :root {
-    --bg: #0f1115;
-    --panel: #181b22;
-    --panel-2: #1f232c;
-    --text: #e7e9ee;
-    --muted: #9aa3b2;
-    --accent: #6ea8fe;
-    --border: #2a2f3a;
+    --text: rgb(55, 53, 47);
+    --text-secondary: rgba(55, 53, 47, 0.65);
+    --text-tertiary: rgba(55, 53, 47, 0.4);
+    --border: rgba(55, 53, 47, 0.12);
+    --hover: rgba(55, 53, 47, 0.03);
+    --card-shadow: rgba(15, 15, 15, 0.1);
+    --blue: #2383e2;
+    --callout-bg: #f7f6f3;
   }
   * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN",
-      "Yu Gothic", Meiryo, sans-serif;
-    background: var(--bg);
+    background: #ffffff;
     color: var(--text);
-    line-height: 1.7;
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Helvetica, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo,
+      "Apple Color Emoji", Arial, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
   }
-  .hero {
-    padding: 72px 24px 40px;
-    text-align: center;
-    background: radial-gradient(1200px 400px at 50% -120px, rgba(110,168,254,0.25), transparent 70%);
-    border-bottom: 1px solid var(--border);
+  .cover {
+    height: 180px;
+    background: linear-gradient(135deg, #ebf4ff 0%, #f3ecff 50%, #fef0f5 100%);
   }
-  .hero h1 { margin: 0 0 12px; font-size: 2.4rem; letter-spacing: 0.5px; }
-  .hero p { margin: 0 auto; max-width: 620px; color: var(--muted); font-size: 1.05rem; }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
-  .section-label {
-    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;
-    color: var(--muted); margin: 8px 0 20px;
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 56px 120px;
   }
-  .grid {
-    display: grid; gap: 18px;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  .icon {
+    font-size: 64px;
+    line-height: 1;
+    margin-top: -44px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 4px 0 6px;
+  }
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin: 0 0 28px;
+  }
+  .callout {
+    display: flex;
+    gap: 12px;
+    background: var(--callout-bg);
+    border-radius: 8px;
+    padding: 16px 16px 16px 14px;
+    margin: 0 0 36px;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .callout .emoji { font-size: 18px; line-height: 1.5; }
+  .callout .body { color: var(--text-secondary); }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 16px;
+  }
+  .gallery {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
   .card {
-    display: flex; flex-direction: column;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
-    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow .2s ease, background .2s ease;
   }
-  .card:hover { transform: translateY(-3px); border-color: var(--accent); background: var(--panel-2); }
-  .card .tag {
-    align-self: flex-start;
-    font-size: 0.72rem; color: var(--accent);
-    border: 1px solid var(--accent); border-radius: 999px;
-    padding: 2px 10px; margin-bottom: 14px;
+  .card:hover { box-shadow: 0 6px 16px var(--card-shadow); }
+  .card .thumb {
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    background: linear-gradient(135deg, #ebf4ff 0%, #f3ecff 100%);
+    border-bottom: 1px solid var(--border);
   }
-  .card h3 { margin: 0 0 8px; font-size: 1.15rem; }
-  .card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
-  .card .go { margin-top: 16px; color: var(--accent); font-size: 0.9rem; font-weight: 600; }
-  .soon {
-    border-style: dashed; opacity: 0.6; cursor: default;
-  }
-  .soon:hover { transform: none; border-color: var(--border); background: var(--panel); }
+  .card .content { padding: 14px 16px 16px; }
+  .card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+  .card p { margin: 0; font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+  .card.soon { border-style: dashed; }
+  .card.soon .thumb { background: var(--callout-bg); color: var(--text-tertiary); }
+  .card.soon:hover { box-shadow: none; cursor: default; }
   footer {
-    text-align: center; color: var(--muted); font-size: 0.82rem;
-    padding: 32px 24px 48px; border-top: 1px solid var(--border);
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-tertiary);
   }
-  footer a { color: var(--accent); text-decoration: none; }
+  footer a { color: var(--blue); text-decoration: none; }
+  .nextaction {
+    border: 1px solid rgba(35, 131, 226, 0.35);
+    background: #f1f7ff;
+    border-radius: 10px;
+    padding: 18px 20px 14px;
+    margin: 8px 0 32px;
+  }
+  .nextaction .na-head {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 15px; margin-bottom: 10px;
+  }
+  .nextaction .na-head .pill {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+    color: #fff; background: var(--blue);
+    padding: 2px 8px; border-radius: 999px;
+  }
+  ul.todo { list-style: none; margin: 0; padding: 0; }
+  ul.todo li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 5px 0; font-size: 15px;
+  }
+  ul.todo .cb {
+    flex: 0 0 auto; width: 17px; height: 17px; margin-top: 3px;
+    border: 1.5px solid rgba(55,53,47,0.35); border-radius: 4px;
+    background: #fff;
+  }
+  ul.todo .cb.done {
+    background: var(--blue); border-color: var(--blue);
+    position: relative;
+  }
+  ul.todo .cb.done::after {
+    content: ""; position: absolute; left: 5px; top: 1px;
+    width: 4px; height: 9px; border: solid #fff;
+    border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  ul.todo li.is-done span:last-child { color: var(--text-tertiary); text-decoration: line-through; }
+  @media (max-width: 560px) {
+    .page { padding: 0 24px 80px; }
+    h1 { font-size: 32px; }
+  }
 </style>
 </head>
 <body>
-  <header class="hero">
+  <div class="cover"></div>
+  <main class="page">
+    <div class="icon">🤖</div>
     <h1>MasayaさんAI</h1>
-    <p>GitHub Copilot を使った AI エージェント活用の解説資料・デックをまとめたページです。新しい資料はここに追加していきます。</p>
-  </header>
+    <p class="subtitle">GitHub Copilot を使った AI エージェント活用の解説資料・デックのまとめページ</p>
 
-  <main class="wrap">
-    <div class="section-label">資料一覧</div>
-    <div class="grid">
+    <div class="nextaction">
+      <div class="na-head"><span class="pill">NEXT ACTION</span>今やること</div>
+      <ul class="todo">
+        <li class="is-done"><span class="cb done"></span><span>公開ページを作成し、リンクで共有できる状態にする</span></li>
+        <li><span class="cb"></span><span>このページのリンクを Masaya さんへ共有する</span></li>
+        <li><span class="cb"></span><span>デック「GitHub Copilot エージェント構成」に目を通し、フィードバックをもらう</span></li>
+        <li><span class="cb"></span><span>次に見たいテーマを決め、第2弾の解説資料を追加する</span></li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <span class="emoji">💡</span>
+      <span class="body">新しい解説資料やデックは、このページにどんどん追加していきます。気になるカードを開いてご覧ください。</span>
+    </div>
+
+    <hr />
+
+    <div class="section-title">資料一覧</div>
+    <div class="gallery">
 
       <a class="card" href="./decks/copilot-agents/">
-        <span class="tag">デック</span>
-        <h3>GitHub Copilot エージェント構成</h3>
-        <p>目的別の AI スタッフを合図ひとつで動かす仕組みと、その作り方（MD 1枚）を初心者向けに解説。</p>
-        <span class="go">スライドを開く →</span>
+        <div class="thumb">🧩</div>
+        <div class="content">
+          <h3>GitHub Copilot エージェント構成</h3>
+          <p>目的別の AI スタッフを合図ひとつで動かす仕組みと、その作り方（MD 1枚）を初心者向けに解説。</p>
+        </div>
       </a>
 
       <div class="card soon">
-        <span class="tag">準備中</span>
-        <h3>次の資料はここに追加</h3>
-        <p>解説資料やデックが増えたら、このページにカードとして並べていきます。</p>
+        <div class="thumb">➕</div>
+        <div class="content">
+          <h3>準備中</h3>
+          <p>次の解説資料・デックはここに追加されます。</p>
+        </div>
       </div>
 
     </div>
-  </main>
 
-  <footer>
-    Curated by Yu &middot; Built with <a href="https://marp.app/">Marp</a> &amp; GitHub Pages
-  </footer>
+    <footer>
+      Curated by Yu &middot; Built with <a href="https://marp.app/">Marp</a> &amp; GitHub Pages
+    </footer>
+  </main>
 </body>
 </html>
