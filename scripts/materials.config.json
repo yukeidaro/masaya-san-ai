@@ -1,5 +1,13 @@
 [
   {
+    "dir": "recap-2026-06-25",
+    "date": "2026-06-25",
+    "title": "リキャップ：AI自動化とLP制作体制",
+    "tag": "リキャップ",
+    "summary": "Chatwork連携によるYouTube企画の自動化、画像ベースLPを編集可能にする手法（Playwright MCP・Figma・要素分解）、クイックにLPOを回す制作体制の方針と、決定事項・アクションアイテム。",
+    "url": "./decks/recap-2026-06-25/"
+  },
+  {
     "dir": "lp-copy-guide",
     "date": "2026-06-24",
     "title": "競合LPをそっくりコピーして差し替える",
