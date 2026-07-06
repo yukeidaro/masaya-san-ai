@@ -86,6 +86,22 @@
   .card p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
   .empty { color: var(--ink-faint); font-size: 15px; padding: 8px 2px; }
 
+  /* prompts (accordion) */
+  .prompts-list { display: grid; gap: 14px; }
+  details.prompt { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: border-color .16s ease, box-shadow .16s ease; }
+  details.prompt[open] { border-color: var(--border-strong); box-shadow: 0 10px 24px rgba(20,20,19,0.06); }
+  details.prompt > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 18px 22px; }
+  details.prompt > summary::-webkit-details-marker { display: none; }
+  details.prompt > summary:hover .p-title { color: var(--clay-dark); }
+  .prompt .p-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; color: var(--ink-faint); border: 1px solid var(--border-strong); border-radius: 999px; padding: 2px 9px; flex: 0 0 auto; }
+  .prompt .p-title { font-family: var(--serif); font-weight: 600; font-size: 18px; letter-spacing: -0.01em; flex: 1 1 auto; }
+  .prompt .p-chev { flex: 0 0 auto; width: 20px; height: 20px; color: var(--clay); transition: transform .2s ease; }
+  details.prompt[open] .p-chev { transform: rotate(180deg); }
+  .prompt .p-body { padding: 0 22px 20px; }
+  .prompt pre { margin: 0 0 12px; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.6; color: var(--ink); background: var(--bg-alt); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .prompt .copy { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--clay-dark); background: none; border: 1px solid var(--border-strong); border-radius: 8px; padding: 7px 14px; cursor: pointer; transition: background .16s ease, color .16s ease, border-color .16s ease; }
+  .prompt .copy:hover { color: #fff; background: var(--clay); border-color: var(--clay); }
+
   /* notes */
   .notes textarea { width: 100%; min-height: 150px; resize: vertical; font-family: var(--sans); font-size: 16px; line-height: 1.6; color: var(--ink); background: #fff; border: 1px solid var(--border-strong); border-radius: 12px; padding: 16px 18px; }
   .notes textarea::placeholder { color: var(--ink-faint); }
@@ -118,6 +134,7 @@
       <div class="links">
         <a href="#next">Next Action</a>
         <a href="#materials">資料</a>
+        <a href="#prompts">プロンプト集</a>
         <a href="#notes">メモ</a>
       </div>
     </div>
@@ -155,6 +172,15 @@
       </div>
       <p id="count" class="count"></p>
       <div id="gallery" class="gallery"></div>
+    </div>
+  </section>
+
+  <!-- PROMPTS -->
+  <section id="prompts">
+    <div class="container reveal">
+      <h2 class="kicker">プロンプト集</h2>
+      <p class="lead">よく使うプロンプトのひな型です。タイトルをクリックすると中身が開きます。「コピー」ボタンでそのまま使えます（<strong>[　]</strong>の部分は自分の情報に置き換えてください）。</p>
+      <div id="promptsList" class="prompts-list"></div>
     </div>
   </section>
 
@@ -258,6 +284,38 @@
 
   search.addEventListener("input", renderMaterials);
   dateFilter.addEventListener("change", renderMaterials);
+
+  // ===== Prompts (accordion) =====
+  const promptsList = $("#promptsList");
+  if (promptsList) {
+    fetch("./prompts.json")
+      .then((r) => r.json())
+      .then((rows) => {
+        if (!Array.isArray(rows) || !rows.length) { promptsList.innerHTML = '<p class="empty">プロンプトはまだありません。</p>'; return; }
+        promptsList.innerHTML = rows.map((p) => `
+          <details class="prompt">
+            <summary>
+              ${p.tag ? `<span class="p-tag">${esc(p.tag)}</span>` : ""}
+              <span class="p-title">${esc(p.title)}</span>
+              <svg class="p-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="p-body">
+              <pre>${esc(p.body)}</pre>
+              <button class="copy" type="button">コピー</button>
+            </div>
+          </details>`).join("");
+        promptsList.querySelectorAll(".copy").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const text = btn.parentElement.querySelector("pre").textContent;
+            const orig = btn.textContent;
+            try { await navigator.clipboard.writeText(text); btn.textContent = "コピーしました"; }
+            catch { btn.textContent = "コピーできませんでした"; }
+            setTimeout(() => { btn.textContent = orig; }, 1400);
+          });
+        });
+      })
+      .catch(() => { promptsList.innerHTML = '<p class="empty">プロンプトの読み込みに失敗しました。</p>'; });
+  }
 
   // ===== Notes (localStorage + optional free central save) =====
   const NKEY = "study_notes_v1";
