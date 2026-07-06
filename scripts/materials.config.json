@@ -1,5 +1,13 @@
 [
   {
+    "dir": "recap-2026-07-06",
+    "date": "2026-07-06",
+    "title": "リキャップ：AI活用ワークフローとクリエイティブ自動化",
+    "tag": "リキャップ",
+    "summary": "高品質なAI出力の3原則（ゴール設定・入力の整理・出力仕様の明確化）、Thinking Partnerでのプロンプト磨き込み、Meta広告のクリエイティブ分析からFigma制作までの自動化ワークフロー構想（OODA×PDCA）、および決定事項・アクションアイテム。",
+    "url": "./decks/recap-2026-07-06/"
+  },
+  {
     "dir": "claude-fable5-prompting",
     "date": "2026-07-03",
     "title": "Claude Fable 5 プロンプト設計ガイド",
