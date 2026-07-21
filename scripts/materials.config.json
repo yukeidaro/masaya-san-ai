@@ -1,5 +1,13 @@
 [
   {
+    "dir": "recap-2026-07-21",
+    "date": "2026-07-21",
+    "title": "リキャップ：AI活用スキルのロードマップと知識管理",
+    "tag": "リキャップ",
+    "summary": "AIツールの使い分け（Codex/Claude/Kimi）、複数アカウント連携をTLDV×Chrome×MCPで自動化する案、AI活用スキルを1〜10のティアと『思考のOS』の2軸で捉えるロードマップ、NotebookLMポッドキャストやライブチャットによる情報過多への対処、Obsidian移行の要点。Mermaid図で可視化。",
+    "url": "./decks/recap-2026-07-21/"
+  },
+  {
     "dir": "notebooklm-podcast",
     "date": "2026-07-21",
     "title": "長い資料を「聞ける」ポッドキャストに変えるスキル",
