@@ -1,14 +1,15 @@
 # MasayaさんAI勉強ノート
 
 AI / Claude Code 学習の勉強ノート（静的サイト・GitHub Pages 無料）。
-トップに Next Action、その下に検索・日付で探せる資料一覧、最後に自由メモ欄。
+トップに Next Action とAI活用スキル・ロードマップ、その下に検索・日付で探せる資料一覧、最後に自由メモ欄。
 
 ## 公開ページ
 https://yukeidaro.github.io/masaya-san-ai/
 
 ## 構成
 ```
-index.html                       <- トップ（Next Action / 資料一覧 / メモ）
+index.html                       <- トップ（Next Action / ロードマップ / 資料一覧 / メモ）
+roadmap.json                     <- AI活用Tier 1〜11と用語解説
 materials.json                   <- 資料の検索インデックス（自動生成・コミットする）
 scripts/
   materials.config.json          <- 資料の一覧定義（日付・タイトル・要約・URL）

@@ -4,30 +4,89 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MasayaさんAI勉強ノート</title>
-<meta name="description" content="AI / Claude Code 学習の勉強ノート。Next Action・資料一覧（検索/日付）・自由メモ。" />
+<meta name="description" content="AI / Claude Code 学習の勉強ノート。AI活用ロードマップ・資料一覧・プロンプト・自由メモ。" />
+<script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
 <style>
   :root {
-    --bg: #faf9f5;
-    --bg-alt: #f0eee6;
-    --ink: #141413;
-    --ink-soft: #5e5d57;
-    --ink-faint: #8a887f;
-    --clay: #cc785c;
-    --clay-dark: #b3623f;
-    --clay-tint: #f7ede7;
-    --border: #e4e1d6;
-    --border-strong: #d9d5c7;
-    --serif: "Tiempos Headline", "Hiragino Mincho ProN", "Yu Mincho", ui-serif, Georgia, serif;
-    --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, Arial, sans-serif;
+    color-scheme: light;
+    --cp-bg: #f7f4ef;
+    --cp-bg-elevated: #fcfbf8;
+    --cp-surface: #ffffff;
+    --cp-surface-soft: #f5f5f5;
+    --cp-border: #dedede;
+    --cp-border-strong: #919191;
+    --cp-text: #242424;
+    --cp-text-muted: #5c5c5c;
+    --cp-text-soft: #6f6f6f;
+    --cp-accent: #b11f4b;
+    --cp-accent-hover: #9a1a41;
+    --cp-accent-soft: rgba(177, 31, 75, 0.08);
+    --cp-accent-fg: #ffffff;
+    --cp-success: #16a34a;
+    --cp-danger: #dc2626;
+    --cp-warning: #f59e0b;
+    --cp-link: #0078d4;
+    --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+    --cp-overlay: rgba(255, 255, 255, 0.8);
+    --cp-panel: rgba(255, 255, 255, 0.86);
+    --cp-panel-strong: rgba(255, 255, 255, 0.96);
+    --cp-sheen: rgba(255, 255, 255, 0.55);
+    --cp-highlight: rgba(177, 31, 75, 0.12);
+    --cp-card-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+    --bg: var(--cp-bg);
+    --bg-alt: var(--cp-bg-elevated);
+    --ink: var(--cp-text);
+    --ink-soft: var(--cp-text-muted);
+    --ink-faint: var(--cp-text-soft);
+    --clay: var(--cp-accent);
+    --clay-dark: var(--cp-accent-hover);
+    --clay-tint: var(--cp-accent-soft);
+    --border: var(--cp-border);
+    --border-strong: var(--cp-border-strong);
+    --serif: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+    --sans: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --cp-bg: #3d3b3a;
+    --cp-bg-elevated: #343231;
+    --cp-surface: #292929;
+    --cp-surface-soft: #2e2e2e;
+    --cp-border: #474747;
+    --cp-border-strong: #5f5f5f;
+    --cp-text: #dedede;
+    --cp-text-muted: #919191;
+    --cp-text-soft: #b0b0b0;
+    --cp-accent: #fd8ea1;
+    --cp-accent-hover: #fb7b91;
+    --cp-accent-soft: rgba(253, 142, 161, 0.14);
+    --cp-accent-fg: #1a1a1a;
+    --cp-success: #4ade80;
+    --cp-danger: #f87171;
+    --cp-warning: #fbbf24;
+    --cp-link: #4da6ff;
+    --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+    --cp-overlay: rgba(41, 41, 41, 0.88);
+    --cp-panel: rgba(41, 41, 41, 0.72);
+    --cp-panel-strong: rgba(41, 41, 41, 0.96);
+    --cp-sheen: rgba(255, 255, 255, 0.04);
+    --cp-highlight: rgba(253, 142, 161, 0.12);
   }
   * { box-sizing: border-box; }
-  html { -webkit-font-smoothing: antialiased; }
+  html { -webkit-font-smoothing: antialiased; scroll-padding-top: 72px; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.65; font-size: 17px; }
   /* cursor-following color glow */
   body::before {
     content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background: radial-gradient(300px circle at var(--mx, 50%) var(--my, -20%),
-      rgba(204,120,92,0.38), rgba(204,120,92,0.16) 45%, transparent 72%);
+      var(--cp-highlight), var(--cp-bg) 72%);
     opacity: 0; transition: opacity .35s ease;
   }
   body.cursor-active::before { opacity: 1; }
@@ -42,7 +101,7 @@
   a { color: inherit; }
   .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
 
-  nav { border-bottom: 1px solid var(--border); background: rgba(250,249,245,0.9); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  nav { border-bottom: 1px solid var(--border); background: var(--cp-overlay); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
   nav .container { display: flex; align-items: center; justify-content: space-between; height: 62px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; text-decoration: none; }
   .brand .dot { width: 20px; height: 20px; border-radius: 6px; background: var(--clay); }
@@ -53,19 +112,52 @@
   header.page-head { padding: 56px 0 8px; }
   header.page-head h1 { font-family: var(--serif); font-weight: 600; font-size: 40px; letter-spacing: -0.02em; margin: 0; }
 
-  section { padding: 40px 0; }
+  section { padding: 40px 0; scroll-margin-top: 72px; }
   .section-alt { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .kicker { font-family: var(--serif); font-size: 26px; font-weight: 600; margin: 0 0 6px; }
   .lead { color: var(--ink-soft); margin: 0 0 24px; max-width: 680px; }
 
   /* next action */
-  .na { background: var(--clay-tint); border: 1px solid #ecd9cf; border-radius: 16px; padding: 28px 30px; }
+  .na { background: var(--clay-tint); border: 1px solid var(--border); border-radius: 16px; padding: 28px 30px; }
   .na h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 20px; }
-  .na .badge { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; color: #fff; background: var(--clay); padding: 3px 10px; border-radius: 999px; }
+  .na .badge { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; color: var(--cp-accent-fg); background: var(--clay); padding: 3px 10px; border-radius: 999px; }
   .na .sub { color: var(--ink-soft); font-size: 15px; margin: 0 0 18px; }
   ul.todo { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
   ul.todo li { display: flex; align-items: flex-start; gap: 12px; font-size: 16.5px; }
-  ul.todo .cb { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 3px; border: 2px solid var(--clay); border-radius: 5px; background: #fff; }
+  ul.todo .cb { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 3px; border: 2px solid var(--clay); border-radius: 5px; background: var(--cp-surface); }
+
+  /* AI skill roadmap */
+  .roadmap-intro { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+  .roadmap-intro .lead { margin-bottom: 0; }
+  .roadmap-legend { display: flex; align-items: center; gap: 8px; color: var(--ink-faint); font-size: 13px; }
+  .roadmap-legend .sample { border: 1px solid var(--border-strong); border-radius: 999px; padding: 3px 9px; color: var(--clay-dark); background: var(--cp-surface); }
+  .roadmap-grid { display: grid; gap: 12px; }
+  details.tier-card { background: var(--cp-surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--cp-card-shadow); }
+  details.tier-card[open] { border-color: var(--border-strong); }
+  details.tier-card > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 82px minmax(160px, 0.8fr) minmax(240px, 1.8fr) 22px; align-items: center; gap: 16px; padding: 17px 20px; }
+  details.tier-card > summary::-webkit-details-marker { display: none; }
+  details.tier-card > summary:hover { background: var(--cp-accent-soft); }
+  .tier-no { color: var(--clay-dark); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+  .tier-title { font-weight: 700; font-size: 16px; }
+  .tier-achievement { color: var(--ink-soft); font-size: 14px; }
+  .tier-chev { width: 20px; height: 20px; color: var(--clay); transition: transform .2s ease; }
+  details.tier-card[open] .tier-chev { transform: rotate(180deg); }
+  .tier-body { border-top: 1px solid var(--border); padding: 16px 20px 20px; background: var(--cp-bg-elevated); }
+  .tier-body h3 { margin: 0 0 10px; font-size: 13px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .06em; }
+  .term-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .term-chip { font: inherit; font-size: 13px; font-weight: 650; color: var(--clay-dark); background: var(--cp-surface); border: 1px solid var(--border-strong); border-radius: 999px; padding: 6px 11px; cursor: pointer; }
+  .term-chip:hover, .term-chip:focus-visible { color: var(--cp-accent-fg); background: var(--clay); border-color: var(--clay); outline: none; }
+  .term-dialog { width: min(620px, calc(100% - 32px)); max-height: min(720px, calc(100vh - 32px)); color: var(--ink); background: var(--cp-surface); border: 1px solid var(--border-strong); border-radius: 16px; padding: 0; box-shadow: var(--cp-shadow); }
+  .term-dialog::backdrop { background: var(--cp-overlay); backdrop-filter: blur(4px); }
+  .term-dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
+  .term-dialog-head h2 { margin: 2px 0 0; font-size: 23px; }
+  .term-category { margin: 0; color: var(--clay-dark); font-size: 12px; font-weight: 750; letter-spacing: .06em; }
+  .term-close { flex: 0 0 auto; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 10px; color: var(--ink); background: var(--cp-surface-soft); cursor: pointer; font-size: 22px; line-height: 1; }
+  .term-dialog-body { padding: 18px 22px 24px; overflow: auto; }
+  .term-dialog-body > p { margin: 0 0 18px; color: var(--ink-soft); }
+  .term-dialog-body h3 { margin: 18px 0 8px; font-size: 15px; }
+  .term-dialog-body ol, .term-dialog-body ul { margin: 0; padding-left: 22px; }
+  .term-example { background: var(--cp-accent-soft); border-left: 3px solid var(--clay); border-radius: 0.625rem; padding: 12px 14px; }
 
   /* materials */
   .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
@@ -75,13 +167,13 @@
   .count { color: var(--ink-faint); font-size: 14px; margin: 0 0 14px; }
   .gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
   .card { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px 22px; transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease; }
-  .section-alt .card { background: #eef3fb; border-color: #d3e0f1; }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(20,20,19,0.08); border-color: var(--border-strong); }
-  .section-alt .card:hover { border-color: #b9cdea; box-shadow: 0 12px 26px rgba(40,80,150,0.12); }
+  .section-alt .card { background: var(--cp-surface); border-color: var(--border); }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--cp-card-shadow); border-color: var(--border-strong); }
+  .section-alt .card:hover { border-color: var(--border-strong); box-shadow: var(--cp-card-shadow); }
   .card .meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
   .card .date { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 14px; color: var(--clay-dark); }
   .card .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; color: var(--ink-faint); border: 1px solid var(--border-strong); border-radius: 999px; padding: 2px 9px; }
-  .section-alt .card .tag { color: #466091; border-color: #c2d3ec; }
+  .section-alt .card .tag { color: var(--ink-faint); border-color: var(--border-strong); }
   .card h3 { font-family: var(--serif); font-weight: 600; font-size: 20px; margin: 2px 0 8px; letter-spacing: -0.01em; }
   .card p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
   .empty { color: var(--ink-faint); font-size: 15px; padding: 8px 2px; }
@@ -89,7 +181,7 @@
   /* prompts (accordion) */
   .prompts-list { display: grid; gap: 14px; }
   details.prompt { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: border-color .16s ease, box-shadow .16s ease; }
-  details.prompt[open] { border-color: var(--border-strong); box-shadow: 0 10px 24px rgba(20,20,19,0.06); }
+  details.prompt[open] { border-color: var(--border-strong); box-shadow: var(--cp-card-shadow); }
   details.prompt > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 18px 22px; }
   details.prompt > summary::-webkit-details-marker { display: none; }
   details.prompt > summary:hover .p-title { color: var(--clay-dark); }
@@ -98,19 +190,19 @@
   .prompt .p-chev { flex: 0 0 auto; width: 20px; height: 20px; color: var(--clay); transition: transform .2s ease; }
   details.prompt[open] .p-chev { transform: rotate(180deg); }
   .prompt .p-body { padding: 0 22px 20px; }
-  .prompt pre { margin: 0 0 12px; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.6; color: var(--ink); background: var(--bg-alt); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .prompt pre { margin: 0 0 12px; white-space: pre-wrap; word-break: break-word; font-family: Consolas, "Courier New", Courier, monospace; font-size: 14px; line-height: 1.6; color: var(--ink); background: var(--bg-alt); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
   .prompt .copy { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--clay-dark); background: none; border: 1px solid var(--border-strong); border-radius: 8px; padding: 7px 14px; cursor: pointer; transition: background .16s ease, color .16s ease, border-color .16s ease; }
-  .prompt .copy:hover { color: #fff; background: var(--clay); border-color: var(--clay); }
+  .prompt .copy:hover { color: var(--cp-accent-fg); background: var(--clay); border-color: var(--clay); }
 
   /* notes */
-  .notes textarea { width: 100%; min-height: 150px; resize: vertical; font-family: var(--sans); font-size: 16px; line-height: 1.6; color: var(--ink); background: #fff; border: 1px solid var(--border-strong); border-radius: 12px; padding: 16px 18px; }
+  .notes textarea { width: 100%; min-height: 150px; resize: vertical; font-family: var(--sans); font-size: 16px; line-height: 1.6; color: var(--ink); background: var(--cp-surface); border: 1px solid var(--border-strong); border-radius: 12px; padding: 16px 18px; }
   .notes textarea::placeholder { color: var(--ink-faint); }
   .notes .row { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
-  .btn { font-family: var(--sans); font-size: 15px; font-weight: 600; color: #fff; background: var(--clay); border: none; border-radius: 10px; padding: 11px 22px; cursor: pointer; }
+  .btn { font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--cp-accent-fg); background: var(--clay); border: none; border-radius: 10px; padding: 11px 22px; cursor: pointer; }
   .btn:hover { background: var(--clay-dark); }
   .status { font-size: 14px; color: var(--ink-faint); }
   .saved-list { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 12px; }
-  .saved-list li { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .saved-list li { background: var(--cp-surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
   .saved-list .when { font-size: 13px; font-weight: 600; color: var(--clay-dark); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
   .saved-list .what { white-space: pre-wrap; font-size: 15px; color: var(--ink); }
   .saved-list .del { float: right; font-size: 13px; color: var(--ink-faint); background: none; border: none; cursor: pointer; }
@@ -124,6 +216,9 @@
     header.page-head h1 { font-size: 30px; }
     nav .links { display: none; }
     .container { padding: 0 22px; }
+    details.tier-card > summary { grid-template-columns: 62px 1fr 20px; gap: 10px; padding: 15px 16px; }
+    .tier-achievement { grid-column: 1 / -1; }
+    .tier-chev { grid-column: 3; grid-row: 1; }
   }
 </style>
 </head>
@@ -133,6 +228,7 @@
       <a class="brand" href="#top"><span class="dot"></span>MasayaさんAI勉強ノート</a>
       <div class="links">
         <a href="#next">Next Action</a>
+        <a href="#roadmap">ロードマップ</a>
         <a href="#materials">資料</a>
         <a href="#prompts">プロンプト集</a>
         <a href="#notes">メモ</a>
@@ -157,6 +253,22 @@
           <li><span class="cb"></span><span><strong>自動化WF（Meta広告 → Figma）の「入力」と「出力」の仕様を固める</strong>（入力＝広告CSV等をClaudeがどう取得するか（API連携か毎週手動DL）、出力＝Figmaの編集可能ファイル。まずは<a href="#prompts">プロンプト集の「Meta広告」</a>で設計から）</span></li>
           <li><span class="cb"></span><span><strong>Fable 5 で事業の要件定義・検証方法を深掘りする</strong>（利用は<strong>7/7（US時間）まで</strong>。賢く考えすぎるので、ゴールを設定して必ず実行させるのがコツ）</span></li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI SKILL ROADMAP -->
+  <section id="roadmap">
+    <div class="container reveal">
+      <div class="roadmap-intro">
+        <div>
+          <h2 class="kicker">AI活用スキル・ロードマップ</h2>
+          <p class="lead">単発利用から、複数エージェントの管理、継続的な自己学習まで。各Tierを開き、機能名をタップすると具体的な使い方がわかります。</p>
+        </div>
+        <div class="roadmap-legend"><span class="sample">機能名</span><span>をタップして詳細を見る</span></div>
+      </div>
+      <div id="roadmapGrid" class="roadmap-grid" aria-live="polite">
+        <p class="empty">ロードマップを読み込んでいます。</p>
       </div>
     </div>
   </section>
@@ -200,6 +312,17 @@
       </div>
     </div>
   </section>
+
+  <dialog id="termDialog" class="term-dialog" aria-labelledby="termTitle">
+    <div class="term-dialog-head">
+      <div>
+        <p id="termCategory" class="term-category"></p>
+        <h2 id="termTitle"></h2>
+      </div>
+      <button id="termClose" class="term-close" type="button" aria-label="閉じる">&times;</button>
+    </div>
+    <div id="termDialogBody" class="term-dialog-body"></div>
+  </dialog>
 
   <footer>
     <div class="container">
@@ -249,6 +372,66 @@
     const p = (n) => String(n).padStart(2, "0");
     return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
   }
+
+  // ===== AI skill roadmap =====
+  const roadmapGrid = $("#roadmapGrid");
+  const termDialog = $("#termDialog");
+  const termTitle = $("#termTitle");
+  const termCategory = $("#termCategory");
+  const termDialogBody = $("#termDialogBody");
+  const termClose = $("#termClose");
+  let roadmapTerms = {};
+
+  function openTerm(termId) {
+    const term = roadmapTerms[termId];
+    if (!term) return;
+    termCategory.textContent = term.category;
+    termTitle.textContent = term.label;
+    termDialogBody.innerHTML = `
+      <p>${esc(term.summary)}</p>
+      <h3>基本の使い方</h3>
+      <ol>${term.steps.map((step) => `<li>${esc(step)}</li>`).join("")}</ol>
+      <h3>ツールの具体例</h3>
+      <ul>${term.tools.map((tool) => `<li>${esc(tool)}</li>`).join("")}</ul>
+      <h3>Masayaさん向けの利用例</h3>
+      <div class="term-example">${esc(term.example)}</div>`;
+    termDialog.showModal();
+  }
+
+  fetch("./roadmap.json")
+    .then((r) => r.json())
+    .then((data) => {
+      roadmapTerms = data.terms || {};
+      roadmapGrid.innerHTML = data.tiers.map((tier) => `
+        <details class="tier-card">
+          <summary>
+            <span class="tier-no">TIER ${esc(String(tier.tier))}</span>
+            <span class="tier-title">${esc(tier.title)}</span>
+            <span class="tier-achievement">${esc(tier.achievement)}</span>
+            <svg class="tier-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="tier-body">
+            <h3>使える機能・仕組み</h3>
+            <div class="term-list">
+              ${tier.functions.map((termId) => {
+                const term = roadmapTerms[termId];
+                return term ? `<button class="term-chip" type="button" data-term="${esc(termId)}">${esc(term.label)}</button>` : "";
+              }).join("")}
+            </div>
+          </div>
+        </details>`).join("");
+      roadmapGrid.querySelectorAll(".term-chip").forEach((button) => {
+        button.addEventListener("click", () => openTerm(button.dataset.term));
+      });
+    })
+    .catch(() => {
+      roadmapGrid.innerHTML = '<p class="empty">ロードマップの読み込みに失敗しました。</p>';
+    });
+
+  termClose.addEventListener("click", () => termDialog.close());
+  termDialog.addEventListener("click", (event) => {
+    if (event.target === termDialog) termDialog.close();
+  });
 
   // ===== Materials (search + date filter) =====
   let MATERIALS = [];

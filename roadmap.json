@@ -1,0 +1,360 @@
+{
+  "tiers": [
+    {
+      "tier": 1,
+      "title": "単発利用",
+      "achievement": "質問、要約、下書きをAIへ依頼し、結果を自分で確認できる。",
+      "functions": ["chat", "voice-input"]
+    },
+    {
+      "tier": 2,
+      "title": "コンテキスト活用",
+      "achievement": "Webや自分の資料から必要な情報を集め、根拠付きで回答させられる。",
+      "functions": ["web-search", "browser-automation", "rag", "obsidian"]
+    },
+    {
+      "tier": 3,
+      "title": "定型ワークの自動化",
+      "achievement": "手順が決まった繰り返し作業を、毎回説明せず自動実行できる。",
+      "functions": ["skills", "automation", "scheduled-workflow"]
+    },
+    {
+      "tier": 4,
+      "title": "分岐・並列処理",
+      "achievement": "仕事を分解し、複数の専門エージェントへ同時に任せて統合できる。",
+      "functions": ["subagents", "agent-team", "routing"]
+    },
+    {
+      "tier": 5,
+      "title": "知識・評価ループ",
+      "achievement": "自分の知識や判断基準を参照し、生成・評価・改善を繰り返せる。",
+      "functions": ["knowledge-base", "memory", "evaluator"]
+    },
+    {
+      "tier": 6,
+      "title": "監督下の自律実行",
+      "achievement": "ゴールを渡すと、AIが計画・実行・修正まで進め、要所で確認を求める。",
+      "functions": ["agent-mode", "autopilot", "plan-mode", "checkpoint"]
+    },
+    {
+      "tier": 7,
+      "title": "非同期エージェント",
+      "achievement": "人が見ていない間も処理を進め、重要な操作は承認を待って止まる。",
+      "functions": ["cloud-agent", "background-agent", "coding-agent", "approval-gate"]
+    },
+    {
+      "tier": 8,
+      "title": "マルチエージェント運用",
+      "achievement": "複数のエージェントを役割分担させ、引き継ぎながら成果を完成できる。",
+      "functions": ["orchestrator", "agent-handoff", "shared-memory"]
+    },
+    {
+      "tier": 9,
+      "title": "Agent Boss",
+      "achievement": "複数エージェントへ委任し、進捗、例外、品質、人間の関与量を管理できる。",
+      "functions": ["agent-inbox", "evals", "human-agent-ratio"]
+    },
+    {
+      "tier": 10,
+      "title": "Frontier Workflow",
+      "achievement": "業務全体が人間主導・エージェント運用でつながり、安全に継続改善される。",
+      "functions": ["end-to-end", "api-mcp", "governance"]
+    },
+    {
+      "tier": 11,
+      "title": "継続学習・OSアップデート",
+      "achievement": "最新情報を継続的に取り込み、人間とAI双方の知識・型・判断基準を更新できる。",
+      "functions": ["research-agent", "source-monitoring", "knowledge-update", "learning-loop"]
+    }
+  ],
+  "terms": {
+    "chat": {
+      "label": "Chat / Ask",
+      "category": "基本操作",
+      "summary": "AIと対話し、質問、要約、文章作成、アイデア出しを行う最も基本的な使い方です。",
+      "steps": ["目的と背景を短く伝える", "欲しい出力形式を指定する", "内容を確認し、足りない点を追加で質問する"],
+      "tools": ["ChatGPT", "Claude", "Microsoft Copilot", "GitHub Copilot Chat"],
+      "example": "会議前に「この資料を3分で説明できるように要点を5つにまとめて」と依頼する。"
+    },
+    "voice-input": {
+      "label": "音声入力",
+      "category": "基本操作",
+      "summary": "考えていることを話してAIへ渡し、文章やタスクへ整理してもらう方法です。",
+      "steps": ["最初にゴールを宣言する", "思いつくまま背景や制約を話す", "AIに論点・決定事項・次の行動へ整理させる"],
+      "tools": ["ChatGPT Voice", "Copilot Voice", "Windows音声入力", "スマートフォンの音声入力"],
+      "example": "移動中に広告施策のアイデアを話し、帰宅時には実行計画と確認事項に整理しておく。"
+    },
+    "web-search": {
+      "label": "Web検索",
+      "category": "情報収集",
+      "summary": "公開Webから最新情報を検索し、複数の出典を比較して回答へ利用します。",
+      "steps": ["調査したい問いと期間を指定する", "一次情報を優先して複数ソースを検索する", "URL・日付・根拠とともに保存する"],
+      "tools": ["検索API", "AIのWeb Search", "Research Agent", "GitHub Search"],
+      "example": "毎週、Meta広告と生成AIの公式アップデートを検索し、自分に関係する変更だけを抽出する。"
+    },
+    "browser-automation": {
+      "label": "Playwright / Chrome DevTools",
+      "category": "情報収集",
+      "summary": "ログインが必要なサイトや動的画面をブラウザで開き、閲覧・入力・取得を自動化します。",
+      "steps": ["対象サイトへログイン済みのブラウザを用意する", "AIに開くページと取得・操作内容を指示する", "送信や削除など重要操作は実行前に確認する"],
+      "tools": ["Playwright", "Chrome DevTools Protocol", "Browser MCP", "Puppeteer"],
+      "example": "TLDVを開いて会議録を取得し、要約したうえでObsidianへ保存する。"
+    },
+    "rag": {
+      "label": "RAG",
+      "category": "知識活用",
+      "summary": "保存済みの大量の資料から質問に関係する部分だけを検索し、AIへ根拠として渡す仕組みです。",
+      "steps": ["信頼できる資料を保存する", "検索できる状態に索引化する", "質問に関連する箇所を取得し、出典付きで回答させる"],
+      "tools": ["全文検索", "ベクトル検索", "Azure AI Search", "NotebookLM"],
+      "example": "過去の広告レポートから今回の商品に近い事例だけを検索し、勝ちパターンの仮説を作る。"
+    },
+    "obsidian": {
+      "label": "Obsidian",
+      "category": "知識活用",
+      "summary": "Markdownファイルで、自分の知識、会議録、判断基準、プロンプトを長期保存する知識ベースです。",
+      "steps": ["事業やテーマごとに保存場所を決める", "出典・日付・要約を付けて保存する", "AIが読みやすい見出しとリンクで整理する"],
+      "tools": ["Obsidian", "Markdown", "OneDrive", "Git"],
+      "example": "TLDVの会議録、施策の決定理由、結果を同じ案件ノートへつなぎ、次回のAI分析に再利用する。"
+    },
+    "skills": {
+      "label": "Skills / テンプレート",
+      "category": "定型化",
+      "summary": "繰り返し使う指示、手順、品質基準を再利用可能な形にまとめます。",
+      "steps": ["何度も行う作業を選ぶ", "入力・手順・出力・完了条件を定義する", "実際に使いながら改善する"],
+      "tools": ["Claude Skills", "Copilot Skills", "Prompt templates", "CLAUDE.md / AGENTS.md"],
+      "example": "「会議録を要約してNext Actionを作る」手順をSkill化し、ファイルを渡すだけで同じ形式にする。"
+    },
+    "automation": {
+      "label": "Automation",
+      "category": "定型化",
+      "summary": "条件と手順が決まった作業を、決定的なルールで自動実行します。",
+      "steps": ["開始条件を決める", "固定手順と例外処理を定義する", "実行結果を記録し、失敗時に通知する"],
+      "tools": ["Power Automate", "GitHub Actions", "Zapier", "Make"],
+      "example": "会議録ファイルが保存されたら、決められたフォルダへ移動し、要約処理を開始する。"
+    },
+    "scheduled-workflow": {
+      "label": "Scheduled Workflow",
+      "category": "定型化",
+      "summary": "定型作業を毎日・毎週など決めた時刻に自動起動します。",
+      "steps": ["実行頻度と時刻を決める", "処理内容と通知先を設定する", "定期的に不要な処理や失敗を見直す"],
+      "tools": ["Scheduled workflows", "GitHub Actions cron", "Power Automate recurrence", "Windows Task Scheduler"],
+      "example": "毎週月曜の朝に広告データを集計し、前週との差分レポートを作成する。"
+    },
+    "subagents": {
+      "label": "サブエージェント",
+      "category": "並列処理",
+      "summary": "大きな仕事を独立した小さな仕事へ分け、専門役のAIへ並列に任せます。",
+      "steps": ["互いに依存しない作業へ分割する", "各エージェントへ役割・入力・成果物を明示する", "結果を親エージェントが比較・統合する"],
+      "tools": ["Copilot subagents", "Claude subagents", "OpenAI Agents SDK"],
+      "example": "競合調査、顧客インサイト、クリエイティブ分析を3体へ任せ、最後に統合レポートを作る。"
+    },
+    "agent-team": {
+      "label": "Agent Team",
+      "category": "並列処理",
+      "summary": "調査役、設計役、実行役、レビュー役など、異なる役割のエージェントをチームとして運用します。",
+      "steps": ["必要な専門役を定義する", "共有するゴールと成果物形式を揃える", "レビュー役が矛盾や抜け漏れを確認する"],
+      "tools": ["Multi-agent frameworks", "Microsoft AutoGen", "CrewAI", "Copilot agent fleet"],
+      "example": "広告バナー制作で、分析役、コピー役、デザイン仕様役、品質確認役を分担させる。"
+    },
+    "routing": {
+      "label": "ルーティング",
+      "category": "並列処理",
+      "summary": "入力内容を分類し、最適な処理や専門エージェントへ自動的に振り分けます。",
+      "steps": ["分類条件を決める", "分類ごとの処理先を用意する", "判定不能な場合は人間へ戻す"],
+      "tools": ["LLM router", "Power Automate conditions", "Agent handoffs", "ルールベース分類"],
+      "example": "問い合わせを広告、請求、技術、緊急の4種類に分類し、それぞれの担当処理へ送る。"
+    },
+    "knowledge-base": {
+      "label": "Knowledge Base",
+      "category": "知識・評価",
+      "summary": "AIが参照すべき事実、方針、事例、判断基準を一貫した形で蓄積します。",
+      "steps": ["保存対象と正本を決める", "古い情報を判別できるよう日付を付ける", "重複や矛盾を定期的に整理する"],
+      "tools": ["Obsidian", "SharePoint", "Notion", "GitHub repository"],
+      "example": "ブランドトーン、成功広告、失敗理由、入稿規定をまとめ、制作時に必ず参照させる。"
+    },
+    "memory": {
+      "label": "Memory",
+      "category": "知識・評価",
+      "summary": "過去の会話、選好、作業履歴を次のセッションへ引き継ぐ仕組みです。",
+      "steps": ["長期保存すべき情報を選ぶ", "事実と一時的な推測を分ける", "不要・古い記憶を削除または更新する"],
+      "tools": ["Copilot Memory", "Agent memory", "セッション要約", "プロジェクト指示ファイル"],
+      "example": "Masayaさんが好むレポート形式や、前回決めた広告評価基準を次回も自動的に適用する。"
+    },
+    "evaluator": {
+      "label": "Evaluator / レビューAgent",
+      "category": "知識・評価",
+      "summary": "作成役とは別の基準で成果物を採点し、改善点を返す仕組みです。",
+      "steps": ["合格条件を先に定義する", "作成役と評価役を分ける", "不合格の場合だけ修正ループを回す"],
+      "tools": ["LLM-as-a-judge", "Review agent", "自動テスト", "チェックリスト"],
+      "example": "広告案を、入稿規定、ブランド整合性、仮説反映度の3軸でレビューしてから出力する。"
+    },
+    "agent-mode": {
+      "label": "Agent Mode",
+      "category": "自律実行",
+      "summary": "AIがコードやファイルを確認し、自ら次の手順を選びながら複数ステップを実行します。",
+      "steps": ["達成したいゴールと対象範囲を伝える", "提案された計画と権限を確認する", "実行ログと最終成果物をレビューする"],
+      "tools": ["GitHub Copilot Agent mode", "Claude Code", "Gemini CLI"],
+      "example": "既存サイトを調査し、必要なファイルを編集して、表示確認まで一連で行わせる。"
+    },
+    "autopilot": {
+      "label": "Autopilot",
+      "category": "自律実行",
+      "summary": "明確なゴールに対して、詳細手順の判断をAIへ委任し、完了まで自律的に進めるモードです。",
+      "steps": ["ゴール・完了条件・禁止事項を明確にする", "重要操作の承認ルールを決める", "終了後に変更内容と根拠を確認する"],
+      "tools": ["Copilot CLI Autopilot", "自律実行モード", "Agent run"],
+      "example": "「ロードマップをサイトへ追加し、モバイル表示を確認して公開する」までを一つのゴールとして渡す。"
+    },
+    "plan-mode": {
+      "label": "Plan Mode",
+      "category": "自律実行",
+      "summary": "実行前にAIへ調査・設計・手順化をさせ、人間が方針を確認してから進めます。",
+      "steps": ["目的と未決事項を伝える", "AIの調査結果と計画を確認する", "承認後に実行モードへ移す"],
+      "tools": ["Copilot Plan mode", "Claude Code Plan mode", "設計レビュー"],
+      "example": "Meta広告からFigmaまでの自動化で、API、データ形式、承認点を実装前に整理する。"
+    },
+    "checkpoint": {
+      "label": "チェックポイント",
+      "category": "自律実行",
+      "summary": "長い処理の途中に、人間確認や状態保存の地点を設ける仕組みです。",
+      "steps": ["失敗コストが高い地点を特定する", "その直前で承認または状態保存する", "再開方法とロールバック方法を用意する"],
+      "tools": ["Human-in-the-loop", "承認ステップ", "進捗ファイル", "Git commit"],
+      "example": "広告を入稿する前に必ず人間が画像・コピー・予算を確認する。"
+    },
+    "cloud-agent": {
+      "label": "Cloud Agent",
+      "category": "非同期実行",
+      "summary": "自分のPCを閉じても、クラウド環境で処理を継続するエージェントです。",
+      "steps": ["クラウド上の実行環境と権限を設定する", "成果物の保存先と通知先を決める", "時間・費用・操作範囲の上限を設定する"],
+      "tools": ["GitHub Copilot coding agent", "Copilot cloud agent", "Azure AI Foundry Agent Service"],
+      "example": "夜に調査を依頼し、翌朝までに出典付きレポートを作成して通知させる。"
+    },
+    "background-agent": {
+      "label": "Background Agent",
+      "category": "非同期実行",
+      "summary": "会話を続けている間や別作業中に、独立した仕事を裏側で進めます。",
+      "steps": ["独立して進められる作業を切り出す", "完了時の報告形式を指定する", "結果が戻ったら統合・確認する"],
+      "tools": ["Copilot background agents", "非同期ジョブ", "Agent task queue"],
+      "example": "サイト実装中に、別エージェントへ一次資料の出典確認を並行して任せる。"
+    },
+    "coding-agent": {
+      "label": "Coding Agent",
+      "category": "非同期実行",
+      "summary": "Issueを受け取り、コード変更、テスト、Pull Request作成までを非同期で進める専門エージェントです。",
+      "steps": ["Issueに要件と完了条件を書く", "エージェントへ割り当てる", "作成されたPRを人間がレビューしてマージする"],
+      "tools": ["GitHub Copilot coding agent", "OpenAI Codex", "Claude Code"],
+      "example": "サイトの検索機能改善をIssue化し、実装とテストを任せてPRだけ確認する。"
+    },
+    "approval-gate": {
+      "label": "承認ゲート",
+      "category": "非同期実行",
+      "summary": "送信、公開、削除、支払いなど高リスク操作の直前で、人間の許可を必須にします。",
+      "steps": ["高リスク操作を分類する", "実行前に内容と影響を表示する", "承認者が明示的に許可した場合のみ進める"],
+      "tools": ["Pull Request review", "Power Automate approvals", "Human-in-the-loop", "Protected environments"],
+      "example": "Meta広告の分析・制作は自動化しても、予算設定と入稿ボタンは人間承認にする。"
+    },
+    "orchestrator": {
+      "label": "Orchestrator",
+      "category": "マルチエージェント",
+      "summary": "中央のエージェントが仕事を分解し、適切な専門エージェントへ配分して結果を統合します。",
+      "steps": ["全体ゴールを受け取る親役を決める", "利用できる専門エージェントを登録する", "依存関係を見ながら配分・回収・統合する"],
+      "tools": ["Microsoft AutoGen", "OpenAI Agents SDK", "LangGraph", "Copilot orchestration"],
+      "example": "親エージェントが広告分析を分解し、市場調査、数値分析、コピー作成、品質確認へ委任する。"
+    },
+    "agent-handoff": {
+      "label": "Agent Handoff",
+      "category": "マルチエージェント",
+      "summary": "作業途中の文脈、成果物、未解決事項を次の専門エージェントへ正しく引き継ぎます。",
+      "steps": ["引き継ぐ情報形式を決める", "完了事項と未解決事項を分ける", "次の担当が受領内容を確認する"],
+      "tools": ["Agent handoffs", "構造化JSON", "進捗ファイル", "Task queue"],
+      "example": "分析エージェントが見つけた勝ち要因を、コピーとデザインのエージェントへ構造化して渡す。"
+    },
+    "shared-memory": {
+      "label": "共有Memory",
+      "category": "マルチエージェント",
+      "summary": "複数エージェントが同じ事実、進捗、判断基準を参照する共有状態です。",
+      "steps": ["共有する情報と更新権限を決める", "一つの正本へ集約する", "競合や古い情報を検出する"],
+      "tools": ["共有データベース", "Git repository", "Vector store", "Agent state store"],
+      "example": "全エージェントが同じブランドガイド、広告データ、タスク進捗を参照する。"
+    },
+    "agent-inbox": {
+      "label": "Agent Inbox / Dashboard",
+      "category": "Agent Boss",
+      "summary": "複数エージェントからの完了報告、質問、失敗、承認依頼を一か所で管理します。",
+      "steps": ["報告先を一つに集約する", "緊急度と種類で分類する", "人間が判断すべき項目だけを優先表示する"],
+      "tools": ["Agent dashboard", "Teams / Slack通知", "GitHub Issues", "Task board"],
+      "example": "朝にダッシュボードを開き、完了3件、要判断2件、失敗1件だけを確認する。"
+    },
+    "evals": {
+      "label": "Evals",
+      "category": "Agent Boss",
+      "summary": "エージェントの品質、再現性、安全性を、決めた問題と採点基準で継続測定します。",
+      "steps": ["代表的なテストケースを作る", "合格基準と採点方法を決める", "変更前後で複数回実行して比較する"],
+      "tools": ["OpenAI Evals", "Promptfoo", "自動テスト", "Human review rubric"],
+      "example": "広告分析を10案件で試し、勝ち要因の根拠提示率と人間の修正回数を記録する。"
+    },
+    "human-agent-ratio": {
+      "label": "Human-Agent Ratio",
+      "category": "Agent Boss",
+      "summary": "仕事ごとに、何体のエージェントを何人の人間が監督するのが適切かを設計する考え方です。",
+      "steps": ["仕事のリスクと複雑性を評価する", "必要な専門エージェント数を決める", "人間の確認頻度を結果に応じて調整する"],
+      "tools": ["Microsoft Frontier Firm framework", "権限マトリクス", "リスク分類表"],
+      "example": "公開情報調査は1人で5体を監督し、広告入稿は1案件ごとに人間が最終確認する。"
+    },
+    "end-to-end": {
+      "label": "End-to-End Automation",
+      "category": "業務変革",
+      "summary": "情報取得から判断支援、成果物作成、記録まで、業務全体を切れ目なくつなぎます。",
+      "steps": ["現在の業務フローを可視化する", "自動化部分と人間判断部分を分ける", "全体の成果指標と障害時の戻し方を設計する"],
+      "tools": ["Power Platform", "Azure", "GitHub Actions", "Agent orchestration"],
+      "example": "Meta広告データ取得、分析、仮説作成、Figma制作、レビュー、入稿準備までを一連でつなぐ。"
+    },
+    "api-mcp": {
+      "label": "API / MCP連携",
+      "category": "業務変革",
+      "summary": "AIが外部サービスや社内データを安全に読み書きするための接続方法です。",
+      "steps": ["必要なデータと操作を特定する", "最小権限の接続を設定する", "読み取りと書き込みで承認ルールを分ける"],
+      "tools": ["REST API", "Model Context Protocol", "Microsoft Graph", "Meta Marketing API"],
+      "example": "Meta広告の数値をAPIで取得し、分析結果をFigma制作エージェントへ渡す。"
+    },
+    "governance": {
+      "label": "監査・ガバナンス",
+      "category": "業務変革",
+      "summary": "エージェントの権限、ログ、個人情報、費用、停止方法を管理し、安全に運用します。",
+      "steps": ["操作を低・中・高リスクに分類する", "権限・承認・ログ・上限を設定する", "事故時の停止と復旧手順を定期確認する"],
+      "tools": ["Audit log", "Role-based access control", "Kill switch", "Cost budget"],
+      "example": "読み取りは自動、外部送信は確認、削除・支払いは別経路承認というルールを設ける。"
+    },
+    "research-agent": {
+      "label": "Research Agent",
+      "category": "継続学習",
+      "summary": "テーマを継続調査し、一次情報を確認して、重要な変化だけを報告する専門エージェントです。",
+      "steps": ["追跡するテーマと信頼できる情報源を決める", "複数ソースを比較し一次情報を確認する", "自分への影響と推奨アクションまで整理する"],
+      "tools": ["Deep Research", "Copilot research agent", "Web Search", "GitHub Search"],
+      "example": "AIエージェント、Meta広告、Figmaの最新変更を毎週調査し、今週試す項目を1つ提案する。"
+    },
+    "source-monitoring": {
+      "label": "GitHub / RSS監視",
+      "category": "継続学習",
+      "summary": "公式ブログ、GitHub Release、論文などの更新を自動検知して学習対象へ追加します。",
+      "steps": ["監視する公式ソースを登録する", "新規更新と重複を自動判定する", "重要度が高い更新だけを通知する"],
+      "tools": ["GitHub Releases", "RSS", "Google Alerts", "Scheduled workflow"],
+      "example": "Anthropic、OpenAI、Microsoft、GitHubの公式更新を監視し、ロードマップへ影響する変更を通知する。"
+    },
+    "knowledge-update": {
+      "label": "知識ベース更新",
+      "category": "継続学習",
+      "summary": "新情報と既存知識の差分を確認し、古い説明や手順を安全に更新します。",
+      "steps": ["新情報と既存ノートを比較する", "追加・変更・廃止を分けて更新案を作る", "人間承認後に正本へ反映し履歴を残す"],
+      "tools": ["Obsidian", "Git pull request", "差分レビュー", "RAG ingestion pipeline"],
+      "example": "新しいCopilot機能が出たら、既存Tierの説明とツール例への変更案を作り、確認後に反映する。"
+    },
+    "learning-loop": {
+      "label": "学習・振り返りループ",
+      "category": "継続学習",
+      "summary": "収集した情報を学ぶだけで終わらせず、実務で試し、結果から自分とAIの判断基準を更新します。",
+      "steps": ["新しい知識から小さな実験を一つ選ぶ", "期待する成果と測定方法を決めて試す", "結果を振り返り、Skillや知識ベースを更新する"],
+      "tools": ["NotebookLM Audio Overview", "週次レビュー", "Experiment log", "Evals"],
+      "example": "新機能をポッドキャストで理解し、実案件で1週間試して、効果があった使い方だけをSkillへ追加する。"
+    }
+  }
+}
