@@ -131,6 +131,9 @@
   .roadmap-intro .lead { margin-bottom: 0; }
   .roadmap-legend { display: flex; align-items: center; gap: 8px; color: var(--ink-faint); font-size: 13px; }
   .roadmap-legend .sample { border: 1px solid var(--border-strong); border-radius: 999px; padding: 3px 9px; color: var(--clay-dark); background: var(--cp-surface); }
+  .roadmap-current { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 14px; padding: 9px 15px; border: 1px solid var(--clay); border-radius: 999px; background: var(--cp-accent-soft); color: var(--clay-dark); font-size: 14px; }
+  .roadmap-current strong { font-weight: 800; letter-spacing: .02em; }
+  .roadmap-current span { color: var(--ink-soft); }
   .roadmap-grid { display: grid; gap: 12px; }
   details.tier-card { background: var(--cp-surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--cp-card-shadow); }
   details.tier-card[open] { border-color: var(--border-strong); }
@@ -139,6 +142,9 @@
   details.tier-card > summary:hover { background: var(--cp-accent-soft); }
   .tier-no { color: var(--clay-dark); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
   .tier-title { font-weight: 700; font-size: 16px; }
+  .tier-flag { display: inline-block; margin-left: 8px; padding: 3px 9px; border-radius: 999px; background: var(--clay); color: var(--cp-accent-fg); font-size: 11px; font-weight: 800; letter-spacing: .06em; vertical-align: middle; white-space: nowrap; }
+  details.tier-card.is-current { border-color: var(--clay); }
+  details.tier-card.is-current > summary { background: var(--cp-accent-soft); }
   .tier-achievement { color: var(--ink-soft); font-size: 14px; }
   .tier-chev { width: 20px; height: 20px; color: var(--clay); transition: transform .2s ease; }
   details.tier-card[open] .tier-chev { transform: rotate(180deg); }
@@ -264,6 +270,7 @@
         <div>
           <h2 class="kicker">AI活用スキル・ロードマップ</h2>
           <p class="lead">単発利用から、複数エージェントの管理、継続的な自己学習まで。各Tierを開き、機能名をタップすると具体的な使い方がわかります。</p>
+          <p id="roadmapCurrent" class="roadmap-current" hidden></p>
         </div>
         <div class="roadmap-legend"><span class="sample">機能名</span><span>をタップして詳細を見る</span></div>
       </div>
@@ -402,11 +409,19 @@
     .then((r) => r.json())
     .then((data) => {
       roadmapTerms = data.terms || {};
-      roadmapGrid.innerHTML = data.tiers.map((tier) => `
-        <details class="tier-card">
+      const current = data.current || null;
+      if (current) {
+        const currentEl = $("#roadmapCurrent");
+        currentEl.innerHTML = `<strong>${esc(current.label)}: Tier ${esc(String(current.from))} → Tier ${esc(String(current.to))}</strong><span>${esc(current.note || "")}</span>`;
+        currentEl.hidden = false;
+      }
+      roadmapGrid.innerHTML = data.tiers.map((tier) => {
+        const isCurrent = !!current && tier.tier >= current.from && tier.tier <= current.to;
+        return `
+        <details class="tier-card${isCurrent ? " is-current" : ""}">
           <summary>
             <span class="tier-no">TIER ${esc(String(tier.tier))}</span>
-            <span class="tier-title">${esc(tier.title)}</span>
+            <span class="tier-title">${esc(tier.title)}${isCurrent ? '<span class="tier-flag">現在地</span>' : ""}</span>
             <span class="tier-achievement">${esc(tier.achievement)}</span>
             <svg class="tier-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </summary>
@@ -419,7 +434,8 @@
               }).join("")}
             </div>
           </div>
-        </details>`).join("");
+        </details>`;
+      }).join("");
       roadmapGrid.querySelectorAll(".term-chip").forEach((button) => {
         button.addEventListener("click", () => openTerm(button.dataset.term));
       });
