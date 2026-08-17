@@ -125,6 +125,7 @@
   ul.todo { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
   ul.todo li { display: flex; align-items: flex-start; gap: 12px; font-size: 16.5px; }
   ul.todo .cb { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 3px; border: 2px solid var(--clay); border-radius: 5px; background: var(--cp-surface); }
+  ul.todo code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; background: rgba(0,0,0,.05); padding: 1px 5px; border-radius: 4px; }
 
   /* AI skill roadmap */
   .roadmap-intro { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
@@ -253,11 +254,11 @@
     <div class="container">
       <div class="na reveal">
         <h2><span class="badge">NEXT ACTION</span>今やること</h2>
-        <p class="sub">「作れる」から「勝手に回る」へ。まずは定期実行を1つ動かし、その土台をGitHubに置きます。</p>
+        <p class="sub">スキルは「作る」より「発動する状態にする」方が難しい。まずは作ったスキルの置き場所を自分で開けるようにして、発動ワードで動かすところまでを日常にします。</p>
         <ul class="todo">
-          <li><span class="cb"></span><span><strong>Claudeの「ルーティン」で定期実行を1つ動かす</strong>（メールのトリアージ、メッセージのサマリー、ブリーフィング作成など。Claude Codeを書かずに始められる最初の一歩。資料：<a href="./decks/recap-2026-08-10/">8/10 リキャップ</a>）</span></li>
-          <li><span class="cb"></span><span><strong>GitHubアカウントを作り、自動化の土台にする</strong>（無料。テスト環境と本番環境を分けられ、PCを閉じてもクラウドで動き、複数のPCから同じ環境を使える。この勉強ノート自身もGitHub Pages上で動いています）</span></li>
-          <li><span class="cb"></span><span><strong>ピアノの広告レポート業務を今週中に引き継ぎ、自動化に着手する</strong>（進め方は「経験則をドキュメント化 → 禁止事項として設定 → エージェントが状況確認して実行」。資料：<a href="./decks/recap-2026-07-27/">7/27 リキャップ</a>）</span></li>
+          <li><span class="cb"></span><span><strong><code>~/.claude/skills</code> をFinder / Obsidianから見えるようにする</strong>（今日の宿題。<code>.claude</code> はドット始まりの隠しフォルダなので既定では表示されません。Finderは <strong>Cmd + Shift + G</strong> にパスを貼れば開けます。Obsidian側は最初に選んだVaultのフォルダが保存先と違う可能性があるので設定を確認してください。ここが見えないと、作ったスキルを自分で直せません。資料：<a href="./decks/recap-2026-08-17/">8/17 リキャップ</a>）</span></li>
+          <li><span class="cb"></span><span><strong>「資料化して」を日常で使い、オリエンシート作成スキルにもトリガーを付ける</strong>（今日その場で作ったHTML化スキルは発動ワード「資料化して」で動きます。出力が気に入らなければ過去に作ったHTMLを添付すれば寄せてくれます。オリエンシートのスキルは作ってあるのに使われていないので、「オリエンが入ったら自動起動」の合図を足してください）</span></li>
+          <li><span class="cb"></span><span><strong>Slackで <code>@claude</code> を試し、朝のSlackスキャンを組む</strong>（連携はすでに済んでいます。毎朝Slack全体をスキャンして重要なものだけ抜き出し、返信文の下書きまで作らせる形。Slackをよく使う分だけ、そのまま時間が浮きます）</span></li>
         </ul>
       </div>
     </div>
