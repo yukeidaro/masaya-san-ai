@@ -254,11 +254,11 @@
     <div class="container">
       <div class="na reveal">
         <h2><span class="badge">NEXT ACTION</span>今やること</h2>
-        <p class="sub">今日の共通点は「設定した、で止まっていた」こと。hooksは設定してあったのに動いておらず、KNOWLEDGE.mdはあるのに更新されていませんでした。次の一手は、足すこと（音声AI）ではなく、回すこと（週次リビルド）です。</p>
+        <p class="sub">今回の焦点は、動画制作の修正がどの版に反映されたかを追えるようにすること。まず版管理を整え、役割を分けたエージェント運用と週次の振り返りにつなげます。</p>
         <ul class="todo">
-          <li><span class="cb"></span><span><strong>KNOWLEDGE.md の「週次リビルド」を回し始める</strong>（監査の結果、メモリの蓄積が極端に少なく、8割方のセッションが学習につながっていないことが分かりました。コツは差分を追記しないこと。追記し続けると読めなくなるので、1週間ごとにメモリからエッセンスだけを抽出して新規で作り直します。セッションを1本立ててClaudeにお願いするだけです。資料：<a href="./decks/recap-2026-08-31/">8/31 リキャップ</a>）</span></li>
-          <li><span class="cb"></span><span><strong>hooks を「設定した」から「動いている」にする</strong>（設定は存在するのに稼働していませんでした。これがメモリが貯まらなかった直接の原因です。まず実際に発火するか、どのくらいの頻度で更新されているかを確認してください。あわせて「セッションを終える時に何を残すか」を決めます。『ありがとう』で終わると何も残りません）</span></li>
-          <li><span class="cb"></span><span><strong>音声入力ツールを再トライアルして、コピペの往復をなくす</strong>（今は各PCのChatGPTに話しかけて結果をコピペされていますが、Typelessなら右Altを押して喋るだけでそのままキーボード入力になります。本質的な価値は、業界用語や固有名詞を話して訂正するほど学習してくれること。使うほど賢くなる点はKNOWLEDGE.mdと同じ構造です。TypelessとWispr Flowの紹介リンクはYuからお送りします）</span></li>
+          <li><span class="cb"></span><span><strong>動画制作の版管理を改善する</strong>（改善プロンプトが届いたらClaude Codeの動画制作セッションで試し、修正前の版・変更点・採用する版を記録する。以前の修正が消えたり、旧版に戻ったりしないか確認する。資料：<a href="./decks/recap-2026-09-25/">9/25 リキャップ</a>）</span></li>
+          <li><span class="cb"></span><span><strong>動画制作のオーケストレーターを設計する</strong>（構成・字幕・確認の役割を分け、担当間の引き継ぎ内容と人が確認するタイミングを決めてから、小さな案件で試す）</span></li>
+          <li><span class="cb"></span><span><strong>週次セッションレビューを試運転する</strong>（自動化用のプロンプトが届いたら、週の成果・未解決事項・次の行動をまとめる。メール連携は権限・宛先・送信前の確認方法を決めてから試す。前回のhooksとKNOWLEDGE.mdの稼働状況も確認する）</span></li>
         </ul>
       </div>
     </div>
@@ -413,7 +413,10 @@
       const current = data.current || null;
       if (current) {
         const currentEl = $("#roadmapCurrent");
-        currentEl.innerHTML = `<strong>${esc(current.label)}: Tier ${esc(String(current.from))} → Tier ${esc(String(current.to))}</strong><span>${esc(current.note || "")}</span>`;
+        const currentTiers = current.from === current.to
+          ? `Tier ${esc(String(current.from))}`
+          : `Tier ${esc(String(current.from))} → Tier ${esc(String(current.to))}`;
+        currentEl.innerHTML = `<strong>${esc(current.label)}: ${currentTiers}</strong><span>${esc(current.note || "")}</span>`;
         currentEl.hidden = false;
       }
       roadmapGrid.innerHTML = data.tiers.map((tier) => {
