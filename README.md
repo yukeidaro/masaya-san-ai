@@ -10,6 +10,7 @@ https://yukeidaro.github.io/masaya-san-ai/
 ```
 index.html                       <- トップ（Next Action / ロードマップ / 資料一覧 / メモ）
 roadmap.json                     <- AI活用Tier 1〜11と用語解説
+prompts.json                     <- プロンプト集（コピー可能な本文）
 materials.json                   <- 資料の検索インデックス（自動生成・コミットする）
 scripts/
   materials.config.json          <- 資料の一覧定義（日付・タイトル・要約・URL）
