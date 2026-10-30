@@ -23,7 +23,8 @@ decks/
 
 ## 新しい資料を追加する手順
 1. `decks/<名前>/` を作り `deck.md` を置く
-2. `npx @marp-team/marp-cli@latest deck.md --html -o index.html`
+2. `deck.md` を main に push すると GitHub Actions（`.github/workflows/build-decks.yml`）が同じフォルダの `index.html` を自動生成・commit・push します。
+   手元で生成する場合は、そのフォルダで `npx -y @marp-team/marp-cli@latest deck.md --html -o index.html` を実行します。
 3. `scripts/materials.config.json` に1件追加（dir / date / title / tag / summary / url）。**date（作成日）は必須**
 4. インデックス再生成：`node scripts/build-materials.mjs`
 5. `git add -A; git commit -m "add <タイトル>"; git push`

@@ -1,0 +1,77 @@
+name: Build deck HTML
+
+on:
+  push:
+    branches: [main]
+    paths: ['decks/**/deck.md']
+  workflow_dispatch:
+    inputs:
+      all:
+        description: 'Rebuild all decks (false: latest commit only)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-decks-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Select decks
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          SOURCE_SHA: ${{ github.sha }}
+          BUILD_ALL: ${{ inputs.all }}
+        run: |
+          base="$BEFORE"
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" && "$BUILD_ALL" != "true" ]]; then
+            base="$(git rev-list --first-parent --max-count=1 --skip=1 "$SOURCE_SHA")"
+          fi
+
+          if [[ "$BUILD_ALL" == "true" || -z "$base" || "$base" =~ ^0+$ ]]; then
+            git ls-files -z -- 'decks/**/deck.md' > "$RUNNER_TEMP/deck-files"
+          else
+            git diff --name-only --diff-filter=ACMRT -z "$base" "$SOURCE_SHA" -- 'decks/**/deck.md' > "$RUNNER_TEMP/deck-files"
+          fi
+
+      - name: Build decks
+        shell: bash
+        run: |
+          while IFS= read -r -d '' deck; do
+            if [[ -f "$deck" ]]; then
+              (
+                cd -- "$(dirname -- "$deck")"
+                npx -y @marp-team/marp-cli@latest deck.md --html -o index.html
+              )
+              git add -- "${deck%/*}/index.html"
+            fi
+          done < "$RUNNER_TEMP/deck-files"
+
+      - name: Commit and push generated HTML
+        shell: bash
+        run: |
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Build deck HTML'
+          git pull --rebase origin main
+          git push origin HEAD:main
