@@ -57,7 +57,9 @@ jobs:
             if [[ -f "$deck" ]]; then
               (
                 cd -- "$(dirname -- "$deck")"
-                npx -y @marp-team/marp-cli@latest deck.md --html -o index.html
+                # --no-stdin: ないと Marp がループの入力（残りの deck 一覧）を Markdown として読み込み、
+                # 2件以上変更したときに "Output path cannot specify with processing multiple files" で落ちる
+                npx -y @marp-team/marp-cli@latest deck.md --no-stdin --html -o index.html
               )
               # スマホで読めるようにする読み物モード（assets/deck-mobile.js）を差し込む
               node scripts/inject-deck-mobile.mjs "${deck%/*}/index.html"
