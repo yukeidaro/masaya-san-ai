@@ -13,9 +13,11 @@ roadmap.json                     <- AI活用Tier 1〜11と用語解説
 prompts.json                     <- プロンプト集（コピー可能な本文）
 skills/<名前>/SKILL.md           <- Claude Code 用スキル本体（プロンプト集にも掲載）
 materials.json                   <- 資料の検索インデックス（自動生成・コミットする）
+assets/deck-mobile.js            <- 資料のスマホ表示（幅760px以下でスライドを縦に読める形に組み替える）
 scripts/
   materials.config.json          <- 資料の一覧定義（日付・タイトル・要約・URL）
   build-materials.mjs            <- deck.md から materials.json を生成
+  inject-deck-mobile.mjs         <- Marp が出した index.html に assets/deck-mobile.js を差し込む
 decks/
   <名前>/ index.html / deck.md   <- 各資料（Marp 生成）
 ```
@@ -24,7 +26,8 @@ decks/
 ## 新しい資料を追加する手順
 1. `decks/<名前>/` を作り `deck.md` を置く
 2. `deck.md` を main に push すると GitHub Actions（`.github/workflows/build-decks.yml`）が同じフォルダの `index.html` を自動生成・commit・push します。
-   手元で生成する場合は、そのフォルダで `npx -y @marp-team/marp-cli@latest deck.md --html -o index.html` を実行します。
+   手元で生成する場合は、そのフォルダで `npx -y @marp-team/marp-cli@latest deck.md --html -o index.html` を実行し、
+   続けてリポジトリ直下で `node scripts/inject-deck-mobile.mjs` を実行します（スマホ用の読み物モードを差し込む）。
 3. `scripts/materials.config.json` に1件追加（dir / date / title / tag / summary / url）。**date（作成日）は必須**
 4. インデックス再生成：`node scripts/build-materials.mjs`
 5. `git add -A; git commit -m "add <タイトル>"; git push`
@@ -42,3 +45,9 @@ decks/
 - Yu も閲覧できる中央保存にするには、無料の **Web3Forms** アクセスキーを取得し、
   `index.html` の `WEB3FORMS_KEY` に設定してください（公開キーなので公開リポジトリでも安全）。
 - キー設定後は、保存時にメモが Yu に届きます（有料要素なし）。
+
+## スマホ表示
+- トップページ：幅720px以下でセクション移動のナビを横並びで表示。入力欄は16px（iOS がタップ時に拡大しないように）。
+- 資料（スライド）：幅760px以下では、16:9 のスライドを縮小せず、1枚ずつ縦に並んだカードとして等倍で表示します。
+  PC・タブレット・スマホ横向きでは従来どおりのスライド表示です。
+- `assets/deck-mobile.js` は各資料から参照しているだけなので、ここを直せば既存の資料すべてに反映されます（再生成は不要）。

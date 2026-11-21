@@ -220,12 +220,55 @@
   footer a { color: var(--clay-dark); text-decoration: none; }
 
   @media (max-width: 720px) {
-    header.page-head h1 { font-size: 30px; }
-    nav .links { display: none; }
-    .container { padding: 0 22px; }
+    html { scroll-padding-top: 56px; }
+    body { font-size: 16px; }
+    .container { padding: 0 16px; }
+
+    /* ナビ：題名はすぐ下の見出しと重複するので省き、セクションへの移動リンクを横スクロールで出す */
+    nav .container { height: 48px; padding: 0; }
+    nav .brand { display: none; }
+    nav .links { display: flex; gap: 0; justify-content: space-between; width: 100%; height: 100%; align-items: center; overflow-x: auto; white-space: nowrap; padding: 0 6px; font-size: 13.5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    nav .links::-webkit-scrollbar { display: none; }
+    nav .links a { padding: 8px 7px; border-radius: 999px; }
+    nav .links a:active { background: var(--clay-tint); color: var(--ink); }
+
+    header.page-head { padding: 28px 0 0; }
+    header.page-head h1 { font-size: 26px; }
+    section { padding: 28px 0; scroll-margin-top: 56px; }
+    .kicker { font-size: 22px; }
+    .lead { margin-bottom: 18px; }
+
+    .na { padding: 20px 16px; border-radius: 14px; }
+    .na h2 { font-size: 18px; flex-wrap: wrap; gap: 8px; }
+    ul.todo li { font-size: 15.5px; gap: 10px; }
+
+    .roadmap-intro { margin-bottom: 16px; }
+    .roadmap-current { display: flex; border-radius: 12px; padding: 10px 14px; }
     details.tier-card > summary { grid-template-columns: 62px 1fr 20px; gap: 10px; padding: 15px 16px; }
     .tier-achievement { grid-column: 1 / -1; }
     .tier-chev { grid-column: 3; grid-row: 1; }
+    .tier-body { padding: 14px 16px 18px; }
+    .term-chip { padding: 8px 12px; }
+    .term-dialog-head { padding: 16px 16px 12px; }
+    .term-dialog-head h2 { font-size: 20px; }
+    .term-dialog-body { padding: 14px 16px 20px; }
+
+    /* iOS は 16px 未満の入力欄をタップすると画面を拡大してしまうため 16px にする */
+    .controls input, .controls select { font-size: 16px; }
+    .controls select { flex: 1 1 100%; }
+    .gallery { grid-template-columns: 1fr; gap: 12px; }
+    .card { padding: 16px 18px 18px; }
+    .card h3 { font-size: 18px; }
+
+    details.prompt > summary { padding: 15px 16px; gap: 10px; }
+    .prompt .p-title { font-size: 16px; }
+    .prompt .p-body { padding: 0 16px 16px; }
+    .prompt pre { font-size: 13px; padding: 12px 14px; }
+    .prompt .copy { padding: 10px 16px; }
+
+    .notes .row { flex-wrap: wrap; }
+    .saved-list .del { padding: 4px 0 4px 10px; }
+    footer { padding: 28px 0 40px; }
   }
 </style>
 </head>

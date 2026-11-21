@@ -59,6 +59,8 @@ jobs:
                 cd -- "$(dirname -- "$deck")"
                 npx -y @marp-team/marp-cli@latest deck.md --html -o index.html
               )
+              # スマホで読めるようにする読み物モード（assets/deck-mobile.js）を差し込む
+              node scripts/inject-deck-mobile.mjs "${deck%/*}/index.html"
               git add -- "${deck%/*}/index.html"
             fi
           done < "$RUNNER_TEMP/deck-files"
